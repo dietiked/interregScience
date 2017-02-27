@@ -1,0 +1,5 @@
+<h1>Formulare</h1>
+<loader [isLoading]="isLoading"></loader>
+<div *ngFor="let form of formCategories | async">
+<a (click)="newForm(form.$key)">{{form.short}} - {{form.name}}</a>
+</div>
