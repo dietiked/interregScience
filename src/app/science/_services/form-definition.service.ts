@@ -6,32 +6,31 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 @Injectable()
-export class FormCategoryService {
+export class FormDefinitionService {
 
-  formCategories: FirebaseListObservable<any[]>;
-  currentForm: FirebaseObjectObservable<any>;
+  formDefinitions: FirebaseListObservable<any[]>;
+  currentDefinition: FirebaseObjectObservable<any>;
 
   constructor(
     protected router: Router,
     private af: AngularFire
   ) {
-    this.formCategories = this.af.database.list('/formCategories');
+    this.formDefinitions = this.af.database.list('/formDefinitions');
   }
 
-  public getFormCategories(): FirebaseListObservable<any[]> {
-    return this.formCategories;
+  public getFormDefinitions(): FirebaseListObservable<any[]> {
+    return this.formDefinitions;
   }
 
-  public getFormCategoryWithKey(key: number): FirebaseObjectObservable<FormCategory> {
-    this.currentForm = this.af.database.object('/formCategories/' + key);
-    return this.currentForm;
+  public getFormDefinitionWithKey(key: number): FirebaseObjectObservable<FormCategory> {
+    this.currentDefinition = this.af.database.object('/formDefinitions/' + key);
+    return this.currentDefinition;
   }
 
   public getPestsForFormCategoryWithKey(key: number) {
-    let pests = this.af.database.list('/formCategories/' + key + '/pests')
+    let pests = this.af.database.list('/formDefinitions/' + key + '/pests')
     .map((items) => {
       for (let item of items) {
-        console.log('Item', item);
         this.af.database.object('/pests/' + item.$key).subscribe(pest => item.name = pest.name);
       }
       return items;

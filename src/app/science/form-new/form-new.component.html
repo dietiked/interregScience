@@ -2,7 +2,7 @@
 <loader [isLoading]="isFormHeaderLoading"></loader>
 <h2>{{formHeader.name}} <span class="text-right">{{formHeader.short}}</span></h2>
 <loader [isLoading]="arePestsLoading"></loader>
-<table class="table">
+<table class="table" *ngIf="!arePestsLoading">
   <tr>
     <th>#</th>
     <th>Sch&auml;dling</th>

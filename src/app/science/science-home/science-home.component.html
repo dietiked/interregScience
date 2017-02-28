@@ -1,5 +1,26 @@
-<h1>Formulare</h1>
-<loader [isLoading]="isLoading"></loader>
-<div *ngFor="let form of formCategories | async">
-<a (click)="newForm(form.$key)">{{form.short}} - {{form.name}}</a>
+<h3>Neues Formular starten</h3>
+<loader [isLoading]="areDefinitionsLoading"></loader>
+<div *ngFor="let definition of formDefinitions | async">
+<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>
 </div>
+
+<h3>Ausgef&uuml;llte Formulare</h3>
+<loader [isLoading]="areFormsLoading"></loader>
+<table class="table" *ngIf="!areFormsLoading">
+  <tr>
+    <th>Datum</th>
+    <th>Formular</th>
+    <th>Anlage</th>
+    <th>Ort</th>
+    <th>Verantwortlich</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let form of forms">
+    <td>{{form.date}}</td>
+    <td>{{form.short}} - {{form.name}}</td>
+    <td></td>
+    <td>{{form.location}}</td>
+    <td>{{form.collaborator}}</td>
+    <td><span class="glyphicon glyphicon-pencil"></span></td>
+  </tr>
+</table>
