@@ -23,10 +23,10 @@ export class FormService {
     let myForm = this.af.database.list('/forms/'+uid)
     .map(userForms => {
       for (let userForm of userForms) {
-        this.af.database.object('/formDefinitions/' + userForm.formCategory)
-        .subscribe(category => {
-          userForm.name = category.name;
-          userForm.short = category.short;
+        this.af.database.object('/formDefinitions/' + userForm.formDefinition)
+        .subscribe(definition => {
+          userForm.name = definition.name;
+          userForm.short = definition.short;
         })
       }
       return userForms;

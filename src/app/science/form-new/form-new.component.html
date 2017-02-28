@@ -1,32 +1,41 @@
-<h1>Neue Datenerhebung</h1>
-<loader [isLoading]="isFormHeaderLoading"></loader>
-<h2>{{formHeader.name}} <span class="text-right">{{formHeader.short}}</span></h2>
-<loader [isLoading]="arePestsLoading"></loader>
-<table class="table" *ngIf="!arePestsLoading">
-  <tr>
-    <th>#</th>
-    <th>Sch&auml;dling</th>
-    <th class="text-center">Kontrolliert</th>
-    <th class="text-center">1</th>
-    <th class="text-center">2</th>
-    <th class="text-center">3</th>
-    <th class="text-center">4</th>
-    <th class="text-center">5</th>
-    <th class="text-center">Total</th>
-    <th class="text-center">Befall</th>
-  </tr>
-  <tr *ngFor="let pest of pests">
-    <td>{{pest.$key}}</td>
-    <td>{{pest.name}}</td>
-    <td class="text-center"><input type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
-    <td class="text-center"><input type="number" name="pest-v1" min="0" [(ngModel)]="pest.v1"></td>
-    <td class="text-center"><input type="number" name="pest-v2" min="0" [(ngModel)]="pest.v2"></td>
-    <td class="text-center"><input type="number" name="pest-v3" min="0" [(ngModel)]="pest.v3"></td>
-    <td class="text-center"><input type="number" name="pest-v4" min="0" [(ngModel)]="pest.v4"></td>
-    <td class="text-center"><input type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
-    <td class="text-center">{{pest.v1 + pest.v2}}</td>
-    <td class="text-center">%</td>
-  </tr>
-</table>
+<div class="col-md-12">
+  <h1>Neue Datenerhebung</h1>
+  <loader [isLoading]="isFormHeaderLoading"></loader>
+  <div *ngIf="!isFormHeaderLoading">
+    <h2>{{formHeader.name}} <span class="text-right">{{formHeader.short}}</span></h2>
+    <label for="form-location">Location</label>
+    <input type="string" name="form-location" min="0" [(ngModel)]="formHeader.location">
+  </div>
+  <loader [isLoading]="arePestsLoading"></loader>
+  <div *ngIf="!arePestsLoading">
+    <p><span class="main-organism">Hauptschädlinge für diese Periode</span></p>
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <th>Sch&auml;dling</th>
+        <th class="text-center">Kontrolliert</th>
+        <th class="text-center">1</th>
+        <th class="text-center">2</th>
+        <th class="text-center">3</th>
+        <th class="text-center">4</th>
+        <th class="text-center">5</th>
+        <th class="text-center">Total</th>
+        <th class="text-center">Befall</th>
+      </tr>
+      <tr *ngFor="let pest of pests" [ngClass]="{'main-organism': pest.$value}">
+        <td>{{pest.$key}}</td>
+        <td>{{pest.name}}</td>
+        <td class="text-center"><input type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
+        <td class="text-center"><input type="number" name="pest-v1" min="0" [(ngModel)]="pest.v1"></td>
+        <td class="text-center"><input type="number" name="pest-v2" min="0" [(ngModel)]="pest.v2"></td>
+        <td class="text-center"><input type="number" name="pest-v3" min="0" [(ngModel)]="pest.v3"></td>
+        <td class="text-center"><input type="number" name="pest-v4" min="0" [(ngModel)]="pest.v4"></td>
+        <td class="text-center"><input type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
+        <td class="text-center">{{pest.v1 + pest.v2}}</td>
+        <td class="text-center">%</td>
+      </tr>
+    </table>
+    <button class="btn btn-primary pull-right">Speichern</button>
+  </div>
 
-<button class="btn btn-primary">Speichern</button>
+</div>

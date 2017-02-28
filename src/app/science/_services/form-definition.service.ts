@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { FormCategory } from '../index';
+import { FormDefinition } from '../index';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
@@ -22,7 +22,7 @@ export class FormDefinitionService {
     return this.formDefinitions;
   }
 
-  public getFormDefinitionWithKey(key: number): FirebaseObjectObservable<FormCategory> {
+  public getFormDefinitionWithKey(key: number): FirebaseObjectObservable<FormDefinition> {
     this.currentDefinition = this.af.database.object('/formDefinitions/' + key);
     return this.currentDefinition;
   }
@@ -31,7 +31,10 @@ export class FormDefinitionService {
     let pests = this.af.database.list('/formDefinitions/' + key + '/pests')
     .map((items) => {
       for (let item of items) {
-        this.af.database.object('/pests/' + item.$key).subscribe(pest => item.name = pest.name);
+        this.af.database.object('/pests/' + item.$key)
+        .subscribe(pest => {
+          item.name = pest.name
+        });
       }
       return items;
     })

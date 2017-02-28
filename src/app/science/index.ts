@@ -1,4 +1,5 @@
-export * from './_models/form-category';
+export * from './_models/form-definition';
+export * from './_models/form';
 export * from './_services/form.service';
 export * from './_services/form-definition.service';
 export * from './science-home/science-home.component';

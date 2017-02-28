@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { FormDefinitionService } from '../index';
-import { FormCategory } from '../index';
+import { Form } from '../index';
 
 @Component({
   moduleId: module.id,
@@ -15,25 +15,25 @@ export class FormNewComponent {
 
   isFormHeaderLoading = true;
   arePestsLoading = true;
-  formHeader = {};
+  formHeader = new Form();
   pests = [];
 
   constructor(
     private route: ActivatedRoute,
-    private formDefinition: FormDefinitionService
+    private formDefinitionService: FormDefinitionService
   ) {
   }
 
   ngOnInit() {
     this.route.params
-    .switchMap((params: Params) => this.formDefinition.getFormDefinitionWithKey(params['formCategoryId']))
-    .subscribe(formHeader => {
-      this.formHeader = formHeader;
+    .switchMap((params: Params) => this.formDefinitionService.getFormDefinitionWithKey(params['formCategoryId']))
+    .subscribe(formDefinition => {
+      this.formHeader.initWithDefinition(formDefinition);
       this.isFormHeaderLoading = false;
     });
 
     this.route.params
-    .switchMap((params: Params) => this.formDefinition.getPestsForFormCategoryWithKey(params['formCategoryId']))
+    .switchMap((params: Params) => this.formDefinitionService.getPestsForFormCategoryWithKey(params['formCategoryId']))
     .subscribe(pests => {
       this.pests = pests;
       this.arePestsLoading = false;
