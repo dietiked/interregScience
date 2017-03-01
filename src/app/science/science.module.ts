@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 
 import { LoaderComponent } from '../_directives/index';
 
-import { FormCategoryService } from './index';
+import { FormDefinitionService, FormService } from './index';
 import { ScienceHomeComponent } from './index';
 import { FormNewComponent } from './index';
 
@@ -31,7 +31,8 @@ import { AuthenticationModule } from '../authentication/import';
     FormNewComponent,
   ],
   providers: [
-    FormCategoryService
+    FormDefinitionService,
+    FormService
   ]
 })
 export class ScienceModule { }

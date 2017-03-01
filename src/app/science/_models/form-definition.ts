@@ -1,4 +1,4 @@
-export class FormCategory {
+export class FormDefinition {
   $key: number;
   name: string;
   short: string;
