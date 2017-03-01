@@ -1,13 +1,59 @@
 <div class="col-md-12">
-  <h1>Neue Datenerhebung</h1>
+  <h1>Boniturblatt</h1>
   <loader [isLoading]="isFormHeaderLoading"></loader>
   <div *ngIf="!isFormHeaderLoading">
     <h2>{{formHeader.name}} <span class="text-right">{{formHeader.short}}</span></h2>
-    <label for="form-location">Location</label>
-    <input type="string" name="form-location" min="0" [(ngModel)]="formHeader.location">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table-condensed">
+          <tr>
+            <td><label for="form-date">Datum</label></td>
+            <td><input type="string" name="form-date" [(ngModel)]="formHeader.date"></td>
+          </tr>
+          <tr>
+            <td><label for="form-location">Ort</label></td>
+            <td><input type="string" name="form-location" [(ngModel)]="formHeader.location"></td>
+          </tr>
+          <tr>
+            <td><label for="form-site">Anlage</label></td>
+            <td><input type="string" name="form-site" [(ngModel)]="formHeader.site"></td>
+          </tr>
+          <tr>
+            <td><label for="form-person">Person</label></td>
+            <td><input type="string" name="form-person" [(ngModel)]="formHeader.person"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table-condensed">
+          <tr>
+            <td><label for="form-variety1">Sorte 1</label></td>
+            <td><input type="string" name="form-variety1" [(ngModel)]="formHeader.variety1"></td>
+          </tr>
+          <tr>
+            <td><label for="form-variety2">Sorte 2</label></td>
+            <td><input type="string" name="form-variety2" [(ngModel)]="formHeader.variety2"></td>
+          </tr>
+          <tr>
+            <td><label for="form-variety3">Sorte 3</label></td>
+            <td><input type="string" name="form-variety3" [(ngModel)]="formHeader.variety3"></td>
+          </tr>
+          <tr>
+            <td><label for="form-variety4">Sorte 4</label></td>
+            <td><input type="string" name="form-variety4" [(ngModel)]="formHeader.variety4"></td>
+          </tr>
+          <tr>
+            <td><label for="form-variety5">Sorte 5</label></td>
+            <td><input type="string" name="form-variety5" [(ngModel)]="formHeader.variety5"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
+
   <loader [isLoading]="arePestsLoading"></loader>
   <div *ngIf="!arePestsLoading">
+    <h2>Bonitur</h2>
     <p><span class="main-organism">Hauptschädlinge für diese Periode</span></p>
     <table class="table">
       <tr>
@@ -35,6 +81,24 @@
         <td class="text-center">%</td>
       </tr>
     </table>
+
+    <table>
+      <tr>
+        <td><label for="form-treatments">Behandlungen seit der letzten Bonitur</label></td>
+      </tr>
+      <tr>
+        <td><textarea name="form-variety5" [(ngModel)]="formHeader.treatments" class="form-control"></textarea></td>
+      </tr>
+      <tr>
+        <td><label for="form-remarks">Bemerkungen</label></td>
+      </tr>
+      <tr>
+        <td><textarea name="form-remarks" [(ngModel)]="formHeader.remarks" class="form-control"></textarea></td>
+      </tr>
+    </table>
+
+
+
     <button class="btn btn-primary pull-right">Speichern</button>
   </div>
 

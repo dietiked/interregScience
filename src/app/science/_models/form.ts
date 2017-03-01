@@ -5,9 +5,14 @@ export class Form {
   date: string;
   location: string;
   person: string;
-  remarks: string;
   site: string;
-  pests = [];
+  variety1: string;
+  variety2: string;
+  variety3: string;
+  variety4: string;
+  variety5: string;
+  remarks: string;
+  treatments: string;
 
   public initWithFirebaseObject(form: any) {
   }
@@ -16,7 +21,6 @@ export class Form {
     this.formDefinition = definition.$key;
     this.name = definition.name;
     this.short = definition.short;
-    this.pests = definition.pests;
   }
 
   public normalize() {
@@ -27,6 +31,12 @@ export class Form {
       person: this.person,
       remarks: this.remarks,
       site: this.site,
+      variety1: this.variety1,
+      variety2: this.variety2,
+      variety3: this.variety3,
+      variety4: this.variety4,
+      variety5: this.variety5,
+
     }
   }
 }
