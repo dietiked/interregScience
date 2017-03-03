@@ -1,7 +1,8 @@
 <h3>Neues Formular starten</h3>
 <loader [isLoading]="areDefinitionsLoading"></loader>
 <div *ngFor="let definition of formDefinitions | async">
-<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>
+<a [routerLink]="['forms', 'new', definition.$key]">{{definition.short}} - {{definition.name}}</a>
+<!--<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>-->
 </div>
 
 <h3>Ausgef&uuml;llte Formulare</h3>
