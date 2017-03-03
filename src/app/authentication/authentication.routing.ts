@@ -1,11 +1,15 @@
-import { ModuleWithProviders }  from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-//import { LoginComponent } from './login/index';
+import { LoginComponent } from './login/index';
 
-const appRoutes: Routes = [
-  //{ path: 'login', component: LoginComponent}
-  //{ path: '**', redirectTo: 'dashboard' }
+const authRoutes: Routes = [
+    { path: 'login', component: LoginComponent},
+    //{ path: 'register', component: LoginComponent}
 ];
 
-export const AuthenticationRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+@NgModule({
+  imports: [ RouterModule.forChild(authRoutes) ],
+  exports: [ RouterModule ]
+})
+export class AuthenticationRouting { }

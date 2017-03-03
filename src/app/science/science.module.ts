@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-//import { ScienceRoutingModule } from './science.routing';
+import { ScienceRoutingModule } from './science.routing';
 
 import { LoaderComponent } from '../_directives/index';
 
@@ -23,7 +23,7 @@ import { AuthenticationModule } from '../authentication/import';
     FormsModule,
     HttpModule,
     AuthenticationModule,
-    //ScienceRoutingModule, // Always last!
+    ScienceRoutingModule, // Always last!
   ],
   declarations: [
     LoaderComponent,
