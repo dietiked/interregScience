@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormCategoryService } from '../index';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { FormDefinitionService, FormService } from '../index';
 
 @Component({
   moduleId: module.id,
@@ -9,16 +10,26 @@ import { FormCategoryService } from '../index';
 
 export class ScienceHomeComponent {
 
-  formCategories = <any>[];
-  isLoading = true;
+  formDefinitions = <any>[];
+  areDefinitionsLoading = true;
+  forms = <any>[];
+  areFormsLoading = true;
 
   constructor(
-    private formService: FormCategoryService,
+    private formDefinitionService: FormDefinitionService,
+    private formService: FormService,
     private router: Router
   ) {
-    this.formCategories = formService.getFormCategories()
-    this.formCategories.subscribe(x => {
-      this.isLoading = false;
+    this.formDefinitions = formDefinitionService.getFormDefinitions()
+    this.formDefinitions.subscribe(x => {
+      this.areDefinitionsLoading = false;
+    })
+
+    this.formService.getUserForms()
+    .subscribe(forms => {
+      this.forms = forms;
+      this.areFormsLoading = false;
+      console.log('Forms', this.forms);
     })
   }
 

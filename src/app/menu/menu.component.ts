@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavigationService } from '../_services/index';
-import { AuthenticationService, AuthenticationMessage } from '../authentication/index';
+import { DDAuthenticationService, DDAuthenticationMessage } from '../dd-authentication/index';
 
 @Component({
   moduleId: module.id,
@@ -10,14 +10,16 @@ import { AuthenticationService, AuthenticationMessage } from '../authentication/
 
 export class MenuComponent {
 
+  @Input() title: string;
+
   isUserLoggedIn = false;
 
   constructor(
-    private authenticationService: AuthenticationService,
+    private authenticationService: DDAuthenticationService,
     private navigationService: NavigationService
   ) {
     this.authenticationService.authState().subscribe(
-      (message: AuthenticationMessage) => {
+      (message: DDAuthenticationMessage) => {
         this.isUserLoggedIn = authenticationService.isUserLoggedIn();
         if (message.isLogout()) {
           this.navigationService.goToLogin();

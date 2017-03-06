@@ -1,17 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { AlertService } from './alert.service';
+import { DDAlertService } from './dd-alert.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'alert',
-    templateUrl: 'alert.component.html'
+    selector: 'dd-alert',
+    templateUrl: 'dd-alert.component.html'
 })
 
-export class AlertComponent {
+export class DDAlertComponent {
     message: any;
 
-    constructor(private alertService: AlertService) { }
+    constructor(private alertService: DDAlertService) { }
 
     ngOnInit() {
         this.alertService.getMessage().subscribe(message => { this.message = message; });

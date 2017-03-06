@@ -1,4 +1,4 @@
-export class AuthenticationMessage {
+export class DDAuthenticationMessage {
   result: string;
   message = '';
 

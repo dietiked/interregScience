@@ -1,0 +1,8 @@
+.breadcrumb {
+  /*min-height: 36px;*/
+  background-color: transparent;
+}
+
+.nav-tabs > li.active > a {
+  border-top: 3px solid rgb(255, 85, 85);
+}
