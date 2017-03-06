@@ -14,7 +14,7 @@ import { FormNewComponent } from './index';
 // Firebase configuration
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
-import { AuthenticationModule } from '../authentication/import';
+import { DDAuthenticationModule } from '../dd-authentication/import';
 
 
 @NgModule({
@@ -22,8 +22,8 @@ import { AuthenticationModule } from '../authentication/import';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AuthenticationModule,
     ScienceRoutingModule, // Always last!
+    DDAuthenticationModule,
   ],
   declarations: [
     LoaderComponent,

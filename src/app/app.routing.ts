@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './authentication/index';
+import { DDAuthGuard } from './dd-authentication/index';
 import { DashboardComponent } from './dashboard/index';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [DDAuthGuard]},
   { path: '**', redirectTo: 'login' }
 ];
 

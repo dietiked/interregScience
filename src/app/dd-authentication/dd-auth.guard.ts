@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class DDAuthGuard implements CanActivate {
 
     localStorageIdentifier = 'BeardedBrewUser';
 
