@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { DDAuthenticationModule } from './dd-authentication/import';
+import { PlattformNavigationModule } from './plattform-navigation/import';
 
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
@@ -37,6 +38,7 @@ const myFirebaseAuthConfig = {
     HttpModule,
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
     DDAuthenticationModule,
+    PlattformNavigationModule,
     ScienceModule,
     AppRouting, // Always last!
   ],

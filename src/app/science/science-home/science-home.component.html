@@ -1,27 +1,31 @@
-<h3>Neues Formular starten</h3>
-<loader [isLoading]="areDefinitionsLoading"></loader>
-<div *ngFor="let definition of formDefinitions | async">
-<a [routerLink]="['forms', 'new', definition.$key]">{{definition.short}} - {{definition.name}}</a>
-<!--<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>-->
-</div>
+<plattform-navigation></plattform-navigation>
 
-<h3>Ausgef&uuml;llte Formulare</h3>
-<loader [isLoading]="areFormsLoading"></loader>
-<table class="table" *ngIf="!areFormsLoading">
-  <tr>
-    <th>Datum</th>
-    <th>Formular</th>
-    <th>Anlage</th>
-    <th>Ort</th>
-    <th>Verantwortlich</th>
-    <th></th>
-  </tr>
-  <tr *ngFor="let form of forms">
-    <td>{{form.date}}</td>
-    <td>{{form.short}} - {{form.name}}</td>
-    <td>{{form.site}}</td>
-    <td>{{form.location}}</td>
-    <td>{{form.person}}</td>
-    <td><span class="glyphicon glyphicon-pencil"></span></td>
-  </tr>
-</table>
+<div class="col-md-12">
+  <h3>Neues Formular starten</h3>
+  <loader [isLoading]="areDefinitionsLoading"></loader>
+  <div *ngFor="let definition of formDefinitions | async">
+  <a [routerLink]="['forms', 'new', definition.$key]">{{definition.short}} - {{definition.name}}</a>
+  <!--<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>-->
+  </div>
+
+  <h3>Ausgef&uuml;llte Formulare</h3>
+  <loader [isLoading]="areFormsLoading"></loader>
+  <table class="table" *ngIf="!areFormsLoading">
+    <tr>
+      <th>Datum</th>
+      <th>Formular</th>
+      <th>Anlage</th>
+      <th>Ort</th>
+      <th>Verantwortlich</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let form of forms">
+      <td>{{form.date}}</td>
+      <td>{{form.short}} - {{form.name}}</td>
+      <td>{{form.site}}</td>
+      <td>{{form.location}}</td>
+      <td>{{form.person}}</td>
+      <td><span class="glyphicon glyphicon-pencil"></span></td>
+    </tr>
+  </table>
+</div>

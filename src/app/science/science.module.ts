@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { PlattformNavigationModule } from '../plattform-navigation/import';
+
 import { ScienceRoutingModule } from './science.routing';
 
 import { LoaderComponent } from '../_directives/index';
@@ -22,7 +24,8 @@ import { DDAuthenticationModule } from '../dd-authentication/import';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ScienceRoutingModule, // Always last!
+    PlattformNavigationModule,
+    ScienceRoutingModule,
     DDAuthenticationModule,
   ],
   declarations: [

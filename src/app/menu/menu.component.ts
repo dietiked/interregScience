@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavigationService } from '../_services/index';
 import { DDAuthenticationService, DDAuthenticationMessage } from '../dd-authentication/index';
 
@@ -9,6 +9,8 @@ import { DDAuthenticationService, DDAuthenticationMessage } from '../dd-authenti
 })
 
 export class MenuComponent {
+
+  @Input() title: string;
 
   isUserLoggedIn = false;
 
