@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
-import { FormDefinitionService } from '../index';
+import { FormDefinitionService, FormService } from '../index';
 import { Form } from '../index';
 
 @Component({
@@ -20,7 +20,8 @@ export class FormNewComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private formDefinitionService: FormDefinitionService
+    private formDefinitionService: FormDefinitionService,
+    private formService: FormService
   ) {
   }
 
@@ -38,6 +39,13 @@ export class FormNewComponent {
       this.pests = pests;
       this.arePestsLoading = false;
     });
+  }
+
+  saveForm() {
+    let normalizeFormHeader = this.formHeader.normalize();
+    console.log('save form:', normalizeFormHeader);
+    this.formService.addForm(normalizeFormHeader)
+    console.log('form pests:', this.pests);
   }
 
 }

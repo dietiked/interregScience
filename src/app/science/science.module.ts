@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-//import { ScienceRoutingModule } from './science.routing';
+import { ScienceRoutingModule } from './science.routing';
 
 import { LoaderComponent } from '../_directives/index';
 
@@ -14,7 +14,7 @@ import { FormNewComponent } from './index';
 // Firebase configuration
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
-import { AuthenticationModule } from '../authentication/import';
+import { DDAuthenticationModule } from '../dd-authentication/import';
 
 
 @NgModule({
@@ -22,8 +22,8 @@ import { AuthenticationModule } from '../authentication/import';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AuthenticationModule,
-    //ScienceRoutingModule, // Always last!
+    ScienceRoutingModule, // Always last!
+    DDAuthenticationModule,
   ],
   declarations: [
     LoaderComponent,

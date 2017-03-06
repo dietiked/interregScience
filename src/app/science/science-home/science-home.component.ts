@@ -25,7 +25,7 @@ export class ScienceHomeComponent {
       this.areDefinitionsLoading = false;
     })
 
-    this.formService.getFormForUser()
+    this.formService.getUserForms()
     .subscribe(forms => {
       this.forms = forms;
       this.areFormsLoading = false;

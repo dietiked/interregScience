@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+.floating-button {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.8);
+  bottom: 0px;
+  right: 0px;
+  padding: 10px;
+  text-align: right;
+}
+
+.floating-button > button {
+  margin-left: 10px;
+}
+
+.form-container {
+  margin-bottom: 50px;
+}
