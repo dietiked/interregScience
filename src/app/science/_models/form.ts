@@ -2,17 +2,21 @@ export class Form {
   formDefinition: string;
   name: string;
   short: string;
-  date: string;
-  location: string;
-  person: string;
-  site: string;
-  variety1: string;
-  variety2: string;
-  variety3: string;
-  variety4: string;
-  variety5: string;
-  remarks: string;
-  treatments: string;
+  _date = new Date();
+  _year = this._date.getFullYear();
+  _month = this._date.getMonth() + 1;
+  _day = this._date.getDay() + 1;
+  date =  this._year + '-' + this._month + '-' + this._day;
+  location = '';
+  person = '';
+  site = '';
+  variety1 = '';
+  variety2 = '';
+  variety3 = '';
+  variety4 = '';
+  variety5 = '';
+  remarks = '';
+  treatments = '';
 
   public initWithFirebaseObject(form: any) {
   }
@@ -21,11 +25,12 @@ export class Form {
     this.formDefinition = definition.$key;
     this.name = definition.name;
     this.short = definition.short;
+    console.log(this.date);
   }
 
   public normalize() {
     return {
-      formCategory: this.formDefinition,
+      formDefinition: this.formDefinition,
       date: this.date,
       location: this.location,
       person: this.person,
