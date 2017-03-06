@@ -5,18 +5,18 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { AuthGuard, AuthenticationMessage } from './index';
+import { DDAuthGuard, DDAuthenticationMessage } from './index';
 
 @Injectable()
-export class AuthenticationService {
+export class DDAuthenticationService {
 
   private authStateSubscriber = new Subject<any>();
-  private message = new AuthenticationMessage();
+  private message = new DDAuthenticationMessage();
 
   constructor(
     private af: AngularFire,
     private router: Router,
-    private authGuard: AuthGuard
+    private authGuard: DDAuthGuard
   ) {
     this.af.auth.subscribe((auth) => {
       // Constantly observe authentication state
