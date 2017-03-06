@@ -6,9 +6,9 @@ import { ScienceHomeComponent } from './index';
 import { FormNewComponent } from './index';
 
 const scienceRoutes: Routes = [
-    { path: 'science', component: ScienceHomeComponent, canActivate: [AuthGuard], children: [
+    { path: 'science', component: ScienceHomeComponent, canActivate: [DDAuthGuard], children: [
     ]}, // },
-    { path: 'science/forms/new/:formCategoryId', component: FormNewComponent, canActivate: [AuthGuard]},
+    { path: 'science/forms/new/:formCategoryId', component: FormNewComponent, canActivate: [DDAuthGuard]},
     // otherwise redirect to home
 ];
 
