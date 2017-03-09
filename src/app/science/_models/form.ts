@@ -1,4 +1,5 @@
 export class Form {
+  $key: string;
   formDefinition: string;
   name: string;
   short: string;
@@ -19,6 +20,19 @@ export class Form {
   treatments = '';
 
   public initWithFirebaseObject(form: any) {
+    this.$key = form.$key;
+    this.formDefinition = form.formDefinition;
+    this.date = form.date;
+    this.location = form.location ?  form.location : '';
+    this.person = form.person ?  form.person : '';
+    this.site = form.site ?  form.site : '';
+    this.variety1 = form.variety1 ?  form.variety1 : '';
+    this.variety2 = form.variety2 ?  form.variety2 : '';
+    this.variety3 = form.variety3 ?  form.variety3 : '';
+    this.variety4 = form.variety4 ?  form.variety4 : '';
+    this.variety5 = form.variety5 ?  form.variety5 : '';
+    this.remarks = form.remarks ?  form.remarks : '';
+    this.treatments = form.treatments ?  form.treatments : '';
   }
 
   public initWithDefinition(definition: any) {

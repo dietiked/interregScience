@@ -9,9 +9,10 @@ import { ScienceRoutingModule } from './science.routing';
 
 import { LoaderComponent } from '../_directives/index';
 
-import { FormDefinitionService, FormService } from './index';
+import { ScienceConstants } from './index';
 import { ScienceHomeComponent } from './index';
-import { FormNewComponent } from './index';
+import { FormDefinitionService, FormService } from './index';
+import { FormNewComponent, FormEditComponent } from './index';
 
 // Firebase configuration
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -32,10 +33,12 @@ import { DDAuthenticationModule } from '../dd-authentication/import';
     LoaderComponent,
     ScienceHomeComponent,
     FormNewComponent,
+    FormEditComponent
   ],
   providers: [
+    ScienceConstants,
     FormDefinitionService,
-    FormService
+    FormService,
   ]
 })
 export class ScienceModule { }
