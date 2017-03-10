@@ -12,6 +12,7 @@ import { MenuComponent } from './menu/index';
 import { NavigationService } from './_services/index';
 import { DashboardComponent } from './dashboard/index';
 import { AuthComponent } from './auth/index'
+import { Error404Component } from './404/index';
 
 import { ScienceModule } from './science/import';
 
@@ -46,7 +47,8 @@ const myFirebaseAuthConfig = {
     AppComponent,
     AuthComponent,
     MenuComponent,
-    DashboardComponent
+    DashboardComponent,
+    Error404Component,
   ],
   providers: [
     NavigationService
