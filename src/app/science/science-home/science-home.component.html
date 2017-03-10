@@ -1,13 +1,6 @@
 <plattform-navigation></plattform-navigation>
 
-<div class="col-md-12">
-  <h3>Neues Formular starten</h3>
-  <loader [isLoading]="areDefinitionsLoading"></loader>
-  <div *ngFor="let definition of formDefinitions | async">
-  <a [routerLink]="['forms', 'new', definition.$key]">{{definition.short}} - {{definition.name}}</a>
-  <!--<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>-->
-  </div>
-
+<div class="col-md-9">
   <h3>Ausgef&uuml;llte Formulare</h3>
   <loader [isLoading]="areFormsLoading"></loader>
   <table class="table" *ngIf="!areFormsLoading">
@@ -28,4 +21,15 @@
       <td><span class="glyphicon glyphicon-pencil"></span></td>
     </tr>
   </table>
+</div>
+
+<div class="col-md-3">
+  <h3>Neues Formular starten</h3>
+  <loader [isLoading]="areDefinitionsLoading"></loader>
+  <a  *ngFor="let definition of formDefinitions | async" [routerLink]="['boniturblatt', 'neu', definition.$key]">
+    <div class="tile">
+      {{definition.short}} - {{definition.name}}
+    </div>
+  </a>
+  <!--<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>-->
 </div>
