@@ -3,18 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-//import { ScienceRoutingModule } from './science.routing';
+import { PlattformNavigationModule } from '../plattform-navigation/import';
+
+import { ScienceRoutingModule } from './science.routing';
 
 import { LoaderComponent } from '../_directives/index';
 
-import { FormCategoryService } from './index';
+import { FormDefinitionService, FormService } from './index';
 import { ScienceHomeComponent } from './index';
 import { FormNewComponent } from './index';
 
 // Firebase configuration
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
-import { AuthenticationModule } from '../authentication/import';
+import { DDAuthenticationModule } from '../dd-authentication/import';
 
 
 @NgModule({
@@ -22,8 +24,9 @@ import { AuthenticationModule } from '../authentication/import';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AuthenticationModule,
-    //ScienceRoutingModule, // Always last!
+    PlattformNavigationModule,
+    ScienceRoutingModule,
+    DDAuthenticationModule,
   ],
   declarations: [
     LoaderComponent,
@@ -31,7 +34,8 @@ import { AuthenticationModule } from '../authentication/import';
     FormNewComponent,
   ],
   providers: [
-    FormCategoryService
+    FormDefinitionService,
+    FormService
   ]
 })
 export class ScienceModule { }

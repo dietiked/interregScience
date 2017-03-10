@@ -3,12 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { DDAuthenticationModule } from './dd-authentication/import';
+import { PlattformNavigationModule } from './plattform-navigation/import';
+
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
-import { AuthenticationModule } from './authentication/import';
 import { MenuComponent } from './menu/index';
 import { NavigationService } from './_services/index';
 import { DashboardComponent } from './dashboard/index';
+import { AuthComponent } from './auth/index'
 
 import { ScienceModule } from './science/import';
 
@@ -34,12 +37,14 @@ const myFirebaseAuthConfig = {
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
-    AuthenticationModule,
+    DDAuthenticationModule,
+    PlattformNavigationModule,
     ScienceModule,
     AppRouting, // Always last!
   ],
   declarations: [
     AppComponent,
+    AuthComponent,
     MenuComponent,
     DashboardComponent
   ],
