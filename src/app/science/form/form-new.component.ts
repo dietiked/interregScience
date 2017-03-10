@@ -8,7 +8,7 @@ import { Form } from '../index';
 @Component({
   moduleId: module.id,
   templateUrl: './form-new.component.html',
-  styleUrls: ['./form-new.component.css']
+  styleUrls: ['./form.component.css']
 })
 
 export class FormNewComponent {

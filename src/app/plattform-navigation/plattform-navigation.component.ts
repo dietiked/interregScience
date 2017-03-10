@@ -10,7 +10,7 @@ import { APPS } from './index';
   styleUrls: ['./plattform-navigation.component.css']
 })
 
-export class PlattformNavigationComponent implements OnInit {
+export class PlattformNavigationComponent {
 
   @Input() title?: string;
   segments: Observable<any[]>;
@@ -20,11 +20,11 @@ export class PlattformNavigationComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute
-  ) { }
-
-  ngOnInit() {
-    this._getBreadcrumbPaths();
-    this._getCurrentApp();
+  ) {
+    this.route.url.subscribe(x => {
+      this._getBreadcrumbPaths();
+      this._getCurrentApp();
+    })
   }
 
   _getBreadcrumbPaths() {
