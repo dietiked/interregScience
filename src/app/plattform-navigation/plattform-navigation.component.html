@@ -1,6 +1,7 @@
 <ul class="nav nav-tabs">
-  <li *ngFor="let app of apps" role="presentation" [ngClass]="{active: app.name==currentApp}"><a [routerLink]="app.link">{{app.name}}</a></li>
+  <li *ngFor="let app of apps" role="presentation" [ngClass]="{active: app.name.toLowerCase()==currentApp}"><a [routerLink]="app.link">{{app.name}}</a></li>
 </ul>
 <ol class="breadcrumb">
-  <li *ngFor="let segment of segments | async"><a [routerLink]="segment.link">{{segment.path}}</a></li>
+  <li *ngFor="let segment of segments | async"><a [routerLink]="segment.link">{{capFirst(segment.path)}}</a></li>
+  <li class="breadcrumb-title">{{title}}</li>
 </ol>

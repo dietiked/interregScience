@@ -12,7 +12,7 @@ import { APPS } from './index';
 
 export class PlattformNavigationComponent {
 
-  @Input() title: string;
+  @Input() title?: string;
   segments: Observable<any[]>;
   apps = APPS;
   currentApp: string;
@@ -48,8 +48,13 @@ export class PlattformNavigationComponent {
 
   _getCurrentApp() {
     this.route.url.subscribe(urlSegments => {
-      this.currentApp = urlSegments[0]['path'];
+      var currentAppString = urlSegments[0]['path']
+      this.currentApp = currentAppString.toLowerCase();
     });
+  }
+
+  capFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 }

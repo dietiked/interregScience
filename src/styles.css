@@ -17,3 +17,14 @@
 .form-container {
   margin-bottom: 50px;
 }
+
+.tile {
+  min-height: 30px;
+  padding: 10px;
+  background-color: rgba(30, 30, 30, 0.8);
+  margin-bottom: 10px;
+}
+
+a > .tile {
+  color: white;
+}
