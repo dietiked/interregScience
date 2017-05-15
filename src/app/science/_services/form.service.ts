@@ -12,6 +12,7 @@ export class FormService {
   public forms: Observable<any>;
   private uid;
   userForms: FirebaseListObservable<any[]>;
+  userPests: FirebaseListObservable<any[]>;
   currentForm: FirebaseObjectObservable<any>;
 
   constructor(
@@ -22,6 +23,7 @@ export class FormService {
       // Download user forms
       this.uid = auth.uid;
       this.userForms = this.af.database.list(ScienceConstants.listFormsForUserWithUid(this.uid));
+      this.userPests = this.af.database.list(ScienceConstants.listPestsForUserWithUid(this.uid));
       // Join user forms with definitions to get definition's full and short name
       this.forms = this._getPublicForms(auth.uid);
     });
@@ -68,6 +70,17 @@ export class FormService {
   // Add new user form
   public addForm(form: any) {
     this.userForms.push(form);
+  }
+
+  // Pests
+  // args: pests = []
+  public addPests(pests: any) {
+    
+  }
+
+  // Return the pest counts for a specific form
+  public getPestsForFormWithKey() {
+
   }
 
 }

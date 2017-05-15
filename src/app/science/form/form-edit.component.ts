@@ -26,26 +26,32 @@ export class FormEditComponent {
   }
 
   ngOnInit() {
+    // i) Load header
     this.route.params
     .switchMap((params: Params) => this.formService.getUserFormWithKey(params['id']))
     .subscribe(form => {
       this.formHeader.initWithFirebaseObject(form);
       this.isFormHeaderLoading = false;
       console.log('Form:', form);
+      console.log('Form Header:', this.formHeader);
+
+      // ii) Load list of pests for this form category
+      this.formDefinitionService.getPestsForFormCategoryWithKey(this.formHeader.formDefinition)
+      .subscribe(pests => {
+        this.pests = pests;
+        this.arePestsLoading = false;
+        console.log('Form definition:', this.formHeader);
+        console.log('Pests:', pests);
+      });
     });
 
-    /*this.route.params
-    .switchMap((params: Params) => this.formDefinitionService.getPestsForFormCategoryWithKey(params['id']))
-    .subscribe(pests => {
-      this.pests = pests;
-      this.arePestsLoading = false;
-    });*/
+    // iii) Load pest values
   }
 
   updateForm() {
-    let normalizeFormHeader = this.formHeader.normalize();
-    console.log('update form:', normalizeFormHeader);
-    this.formService.updateForm(normalizeFormHeader)
+    let normalizedFormHeader = this.formHeader.normalize();
+    console.log('update form:', normalizedFormHeader);
+    this.formService.updateForm(normalizedFormHeader)
   }
 
 }

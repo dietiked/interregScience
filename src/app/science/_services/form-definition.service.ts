@@ -18,7 +18,7 @@ export class FormDefinitionService {
     private af: AngularFire,
     private constants: ScienceConstants
   ) {
-    this.formDefinitions = this.af.database.list(ScienceConstants.LIST_FORMDEFINITIONS);
+    this.formDefinitions = this.af.database.list(ScienceConstants.DEF_FORMS);
   }
 
   public getFormDefinitions(): FirebaseListObservable<any[]> {
@@ -30,13 +30,13 @@ export class FormDefinitionService {
     return this.currentDefinition;
   }
 
-  public getPestsForFormCategoryWithKey(key: number) {
+  public getPestsForFormCategoryWithKey(key) {
     let pests = this.af.database.list(ScienceConstants.listPestsForDefinitionWithKey(key))
     .map((items) => {
       for (let item of items) {
         this.af.database.object(ScienceConstants.objectPestWithKey(item.$key))
         .subscribe(pest => {
-          item.name = pest.name
+          item.name = pest.name;
         });
       }
       return items;
