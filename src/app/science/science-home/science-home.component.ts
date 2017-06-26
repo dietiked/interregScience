@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { FormDefinitionService, FormService } from '../index';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   moduleId: module.id,
   templateUrl: './science-home.component.html'
 })
 
-export class ScienceHomeComponent {
+export class ScienceHomeComponent implements OnInit  {
 
-  formDefinitions = <any>[];
+  formDefinitions: FirebaseListObservable<any[]>;
+  forms: FirebaseListObservable<any[]>;
   areDefinitionsLoading = true;
-  forms = <any>[];
   areFormsLoading = true;
 
   constructor(
@@ -20,17 +20,21 @@ export class ScienceHomeComponent {
     private formService: FormService,
     private router: Router
   ) {
-    this.formDefinitions = formDefinitionService.getFormDefinitions()
-    this.formDefinitions.subscribe(x => {
+  }
+
+  ngOnInit() {
+    // Show form definitions once finish loading
+    this.formDefinitions = this.formDefinitionService.formDefinitions;
+    this.formDefinitions.subscribe(observer => {
       this.areDefinitionsLoading = false;
     })
 
-    this.formService.getUserForms()
+  // Show user forms once finish loading
+   /*this.formService.getForms()
     .subscribe(forms => {
-      this.forms = forms;
       this.areFormsLoading = false;
       console.log('Forms', this.forms);
-    })
+    })*/
   }
 
   newForm(key) {

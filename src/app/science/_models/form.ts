@@ -22,6 +22,8 @@ export class Form {
   public initWithFirebaseObject(form: any) {
     this.$key = form.$key;
     this.formDefinition = form.formDefinition;
+    this.name = form.name;
+    this.short = form.short;
     this.date = form.date;
     this.location = form.location ?  form.location : '';
     this.person = form.person ?  form.person : '';

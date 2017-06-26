@@ -22,7 +22,7 @@ import { DDAlertModule } from '../dd-alert/import';
     DDAuthGuard,
   ],
   exports: [
-    DDLoginComponent
+    DDLoginComponent,
   ]
 })
 export class DDAuthenticationModule { }

@@ -14,9 +14,6 @@ import { ScienceHomeComponent } from './index';
 import { FormDefinitionService, FormService } from './index';
 import { FormNewComponent, FormEditComponent } from './index';
 
-// Firebase configuration
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-
 import { DDAuthenticationModule } from '../dd-authentication/import';
 
 
