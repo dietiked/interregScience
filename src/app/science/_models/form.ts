@@ -18,6 +18,7 @@ export class Form {
   variety5 = '';
   remarks = '';
   treatments = '';
+  pests = [];
 
   public initWithFirebaseObject(form: any) {
     this.$key = form.$key;

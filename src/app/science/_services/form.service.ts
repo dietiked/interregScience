@@ -21,7 +21,6 @@ export class FormService implements OnInit {
     private database: AngularFireDatabase
   ) {
     this.authenticationService.user.subscribe(user => {
-      console.log('Halo halo', user.uid);
       // Get UID
       this.uid = user.uid;
       this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid));
@@ -45,7 +44,7 @@ export class FormService implements OnInit {
 
   // Add new user form
   public addForm(form: any) {
-    this.forms.push(form);
+    return this.forms.push(form);
   }
 
   // Pests

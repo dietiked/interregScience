@@ -22,7 +22,9 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 
-
+// Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -31,6 +33,8 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebase, 'interreg'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     DDAuthenticationModule,
     PlattformNavigationModule,
     ScienceModule,

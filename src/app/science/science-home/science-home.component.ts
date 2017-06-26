@@ -5,7 +5,8 @@ import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/d
 
 @Component({
   moduleId: module.id,
-  templateUrl: './science-home.component.html'
+  templateUrl: './science-home.component.html',
+  styleUrls: ['./science-home.component.css']
 })
 
 export class ScienceHomeComponent implements OnInit  {

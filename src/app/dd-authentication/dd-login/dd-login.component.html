@@ -1,19 +1,32 @@
-<form (ngSubmit)="signinWithPassword()" #loginForm="ngForm">
-  <div class="form-group">
-    <label for="name">email: </label>
-    <input [(ngModel)]="user.email" placeholder="email" class="form-control" name="email" [disabled]="isLoading"/>
+<md-card>
+  <md-card-content>
+  <h1 class="text-align">Interreg V</h1>
+  <h4>Rückstandsarmer Obstbau</h4>
+
+  <form (ngSubmit)="signinWithPassword()" #loginForm="ngForm">
+
+    <section class="login-row">
+      <md-input-container>
+        <input mdInput [(ngModel)]="user.email" placeholder="email" name="email" [disabled]="isLoading">
+      </md-input-container>
+    </section>
+
+    <section class="login-row">
+      <md-input-container>
+          <input mdInput [(ngModel)]="user.password" placeholder="password" type="password" name="password" [disabled]="isLoading"/>
+      </md-input-container>
+    </section>
+
+    <button md-raised-button type="submit" [disabled]="isLoading" color="primary">Sign in</button>  
+
+  </form>
+  <div *ngIf="isLoading">
+    <md-spinner></md-spinner>
   </div>
-  <div class="form-group">
-    <label for="password">password: </label>
-    <input [(ngModel)]="user.password" placeholder="password" type="password" class="form-control"  name="password" [disabled]="isLoading"/>
-  </div>
-  <button class="btn btn-primary btn-block" type="submit" [disabled]="isLoading">
-    Sign in
-  </button>
-</form>
+  </md-card-content>
+</md-card>
+
+
 <div id="login-component-message-container">
   <dd-alert></dd-alert>
-  <div *ngIf="isLoading">
-    <p class="text-center"><img height="30" src="/assets/gif-load.gif"> Authentication</p>
-  </div>
 </div>

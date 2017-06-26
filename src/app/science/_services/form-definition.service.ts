@@ -6,12 +6,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import { ScienceConstants } from '../index';
-import { FormDefinition } from '../index';
+import { FormDefinition, Form } from '../index';
 
 @Injectable()
 export class FormDefinitionService {
 
   public formDefinitions: FirebaseListObservable<any[]>;
+  public newForm = new Form();
   currentDefinition: FirebaseObjectObservable<any>;
 
   constructor(
@@ -22,9 +23,15 @@ export class FormDefinitionService {
     this.formDefinitions = this.database.list(ScienceConstants.DEF_FORMS);
   }
 
-  public getFormDefinitionWithKey(key: number): FirebaseObjectObservable<FormDefinition> {
-    this.currentDefinition = this.database.object(ScienceConstants.objectFormDefinitionWithKey(key));
-    return this.currentDefinition;
+  public getFormDefinitionWithKey(key: number) {
+   let def = this.database.object(ScienceConstants.objectFormDefinitionWithKey(key))
+    def.subscribe((definition) => {
+      this.newForm = new Form();
+      this.newForm.initWithDefinition(definition);
+      this.getPestsForFormCategoryWithKey(key).subscribe(pests => this.newForm.pests = pests);
+      console.log('New empty form from service', this.newForm);
+    });
+    return def;
   }
 
   public getPestsForFormCategoryWithKey(key) {

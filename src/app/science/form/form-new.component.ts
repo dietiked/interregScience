@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
+import { NavigationService } from '../../_services/index';
+
 import { FormDefinitionService, FormService } from '../index';
 import { Form, FormPest } from '../index';
 
@@ -13,13 +15,13 @@ import { Form, FormPest } from '../index';
 
 export class FormNewComponent {
 
-  isFormHeaderLoading = true;
+  isFormLoading = true;
   arePestsLoading = true;
-  formHeader = new Form();
-  pests = [];
+  form = new Form();
 
   constructor(
     private route: ActivatedRoute,
+    private navigationService: NavigationService,
     private formDefinitionService: FormDefinitionService,
     private formService: FormService
   ) {
@@ -27,33 +29,28 @@ export class FormNewComponent {
 
   ngOnInit() {
     this.route.params
-    .switchMap((params: Params) => this.formDefinitionService.getFormDefinitionWithKey(params['formCategoryId']))
-    .subscribe(formDefinition => {
-      this.formHeader.initWithDefinition(formDefinition);
-      this.isFormHeaderLoading = false;
-    });
-
-    this.route.params
-    .switchMap((params: Params) => this.formDefinitionService.getPestsForFormCategoryWithKey(params['formCategoryId']))
-    .subscribe(pests => {
-      pests.forEach(pest => {
-        var newPest = new FormPest(pest);
-        this.pests.push(newPest)
-        console.log('this is a pest', pest);
-      });
-      console.log(pests);
-      this.arePestsLoading = false;
+    .subscribe((params: Params) => {
+      this.formDefinitionService.getFormDefinitionWithKey(params['formCategoryId'])
+      .subscribe(x => {
+        this.form = this.formDefinitionService.newForm
+        this.arePestsLoading = false;
+        }
+      );
     });
   }
 
   saveForm() {
     // Save form header
-    let normalizeFormHeader = this.formHeader.normalize();
-    console.log('save form:', normalizeFormHeader);
-    this.formService.addForm(normalizeFormHeader)
+    let normalizeform = this.form.normalize();
+    console.log('save form:', normalizeform);
+    this.formService.addForm(normalizeform)
+    .then(x => {
     // Save pests
     //this.formService.addPests(this.pests);
-    console.log('form pests:', this.pests);
+      console.log('form pests:', this.form.pests);
+      this.navigationService.goToScience();
+      }
+    );
   }
 
 }

@@ -15,7 +15,7 @@ export class FormEditComponent {
 
   isFormHeaderLoading = true;
   arePestsLoading = true;
-  formHeader = new Form();
+  form = new Form();
   pests = [];
 
   constructor(
@@ -30,17 +30,17 @@ export class FormEditComponent {
     this.route.params
     .switchMap((params: Params) => this.formService.getUserFormWithKey(params['id']))
     .subscribe(form => {
-      this.formHeader.initWithFirebaseObject(form);
+      this.form.initWithFirebaseObject(form);
       this.isFormHeaderLoading = false;
       console.log('Form:', form);
-      console.log('Form Header:', this.formHeader);
+      console.log('Form Header:', this.form);
 
       // ii) Load list of pests for this form category
-      this.formDefinitionService.getPestsForFormCategoryWithKey(this.formHeader.formDefinition)
+      this.formDefinitionService.getPestsForFormCategoryWithKey(this.form.formDefinition)
       .subscribe(pests => {
         this.pests = pests;
         this.arePestsLoading = false;
-        console.log('Form definition:', this.formHeader);
+        console.log('Form definition:', this.form);
         console.log('Pests:', pests);
       });
     });
@@ -49,7 +49,7 @@ export class FormEditComponent {
   }
 
   updateForm() {
-    let normalizedFormHeader = this.formHeader.normalize();
+    let normalizedFormHeader = this.form.normalize();
     console.log('update form:', normalizedFormHeader);
     this.formService.updateForm(normalizedFormHeader)
   }

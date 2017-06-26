@@ -3,6 +3,8 @@ import { NgModule }      from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { MdButtonModule, MdInputModule, MdProgressSpinnerModule, MdCardModule} from '@angular/material';
+
 import { DDAuthenticationService, DDAuthGuard } from './index';
 import { DDLoginComponent } from './index';
 import { DDAlertModule } from '../dd-alert/import';
@@ -12,6 +14,10 @@ import { DDAlertModule } from '../dd-alert/import';
     BrowserModule,
     FormsModule,
     HttpModule,
+    MdButtonModule,
+    MdInputModule,
+    MdProgressSpinnerModule,
+    MdCardModule,
     DDAlertModule
    ],
   declarations: [

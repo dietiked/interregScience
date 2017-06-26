@@ -20,4 +20,7 @@ export class NavigationService {
   public goToLogin() {
     this.router.navigate(['/login']);
   }
+  public goToScience() {
+    this.router.navigate(['/wissenschaft']);
+  }
 }
