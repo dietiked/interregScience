@@ -40,10 +40,8 @@ export class DDAuthenticationService {
   // A simple function that check if user is logged in
   public isUserLoggedIn() {
     if (this.afAuth.auth.currentUser) {
-      console.log('User is logged in');
       return true;
     }
-    console.log('User is NOT logged in');
     return false;
   }
 
@@ -52,10 +50,8 @@ export class DDAuthenticationService {
     let message = new DDAuthenticationMessage();
     if (user) {
       message.loginMessage();
-      console.log('User', user.uid);
      } else {
       message.logoutMessage();
-       console.log('Login failed', user);
      }
     this.authStateSubscriber.next(message);
   }

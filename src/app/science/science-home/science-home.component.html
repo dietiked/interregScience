@@ -12,7 +12,7 @@
       <th>Verantwortlich</th>
       <th></th>
     </tr>
-    <tr *ngFor="let form of forms">
+    <tr *ngFor="let form of forms | async">
       <td>{{form.date}}</td>
       <td>{{form.short}} - {{form.name}}</td>
       <td>{{form.site}}</td>

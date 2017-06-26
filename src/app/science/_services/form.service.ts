@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { DDAuthenticationService } from '../../dd-authentication/index';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -17,22 +17,19 @@ export class FormService implements OnInit {
 
   constructor(
     protected router: Router,
-    private af: AngularFireAuth,
+    private authenticationService: DDAuthenticationService,
     private database: AngularFireDatabase
   ) {
-    this.af.authState.subscribe(user => {
+    this.authenticationService.user.subscribe(user => {
+      console.log('Halo halo', user.uid);
       // Get UID
       this.uid = user.uid;
+      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid));
+      this.userPests = this.database.list(ScienceConstants.listPestsForUserWithUid(this.uid));
     });
  }
 
   ngOnInit() {
-    // Download user forms
-      // Get UID
-      console.log('UID', this.uid);
-      // Get forms
-      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid));
-      this.userPests = this.database.list(ScienceConstants.listPestsForUserWithUid(this.uid));
   }
 
   // Return form with specific ID (for edit)
@@ -40,10 +37,6 @@ export class FormService implements OnInit {
     let objectPath = ScienceConstants.objectFormForUserWithUidAndKey(this.uid, key);
     this.currentForm = this.database.object(objectPath);
     return this.currentForm;
-  }
-
-  public getForms():Observable<any> {
-    return this.forms;
   }
 
   public updateForm(form: any) {

@@ -30,11 +30,11 @@ export class ScienceHomeComponent implements OnInit  {
     })
 
   // Show user forms once finish loading
-   /*this.formService.getForms()
-    .subscribe(forms => {
+    this.forms =  this.formService.forms;
+    this.forms.subscribe(forms => {
+      console.log('Forms', forms);
       this.areFormsLoading = false;
-      console.log('Forms', this.forms);
-    })*/
+    })
   }
 
   newForm(key) {
