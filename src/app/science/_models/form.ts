@@ -48,6 +48,8 @@ export class Form {
   public normalize() {
     return {
       formDefinition: this.formDefinition,
+      name: this.name,
+      short: this.short,
       date: this.date,
       location: this.location,
       person: this.person,
