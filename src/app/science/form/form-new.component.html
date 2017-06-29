@@ -1,5 +1,130 @@
-<!--<plattform-navigation [title]="form.name"></plattform-navigation>-->
-<div class="main-container">
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <loader [isLoading]="isFormLoading"></loader>
+        <div class="card" *ngIf="!isFormLoading">
+          <div class="header">
+            <h3 class="title">{{form.name}} - {{form.short}}</h3>
+            <p class="category">Boniturblatt</p>
+          </div> <!-- .header -->
+          <div class="content">
+            <table class="table-condensed">
+              <tr>
+                <td><label for="form-date">Datum</label></td>
+                <td><input type="date" name="form-date" [(ngModel)]="form.date"></td>
+              </tr>
+              <tr>
+                <td><label for="form-location">Ort</label></td>
+                <td><input class="form-control" type="string" name="form-location" [(ngModel)]="form.location"></td>
+              </tr>
+              <tr>
+                <td><label for="form-site">Anlage</label></td>
+                <td><input class="form-control" type="string" name="form-site" [(ngModel)]="form.site"></td>
+              </tr>
+              <tr>
+                <td><label for="form-person">Person</label></td>
+                <td><input class="form-control" type="string" name="form-person" [(ngModel)]="form.person"></td>
+              </tr>
+            </table>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <loader [isLoading]="arePestsLoading"></loader>
+        <div class="card" *ngIf="!arePestsLoading">
+          <div class="header">
+            <h3 class="title">Bonitur</h3>
+          </div> <!-- .header -->
+          <div class="content">
+            <p><span class="main-organism">Hauptschädlinge für diese Periode</span></p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Sch&auml;dling</th>
+                  <th class="text-center">Kontrolliert</th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety1" [(ngModel)]="form.variety1"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety2" [(ngModel)]="form.variety2"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety3" [(ngModel)]="form.variety3"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety4" [(ngModel)]="form.variety4"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety5" [(ngModel)]="form.variety5"></th>
+                  <th class="text-center">Total</th>
+                  <th class="text-center">Befall</th>
+                </tr>
+              </thead>
+              <tr *ngFor="let pest of form.pests" [ngClass]="{'info': pest.$value}">
+                <td>{{pest.$key}}</td>
+                <td>{{pest.name}}</td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v1" min="0" [(ngModel)]="pest.v1"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v2" min="0" [(ngModel)]="pest.v2"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v3" min="0" [(ngModel)]="pest.v3"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v4" min="0" [(ngModel)]="pest.v4"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
+                <td class="text-center">{{pest.v1 + pest.v2}}</td>
+                <td class="text-center">%</td>
+              </tr>
+            </table>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <loader [isLoading]="arePestsLoading"></loader>
+        <div class="card" *ngIf="!arePestsLoading">
+          <div class="header">
+            <h3 class="title">Behandlungen</h3>
+            <p class="category" >seit der letzten Bonitur</p>
+          </div> <!-- .header -->
+          <div class="content">
+            <textarea name="form-variety5" [(ngModel)]="form.treatments" class="form-control" rows=5></textarea>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <loader [isLoading]="arePestsLoading"></loader>
+        <div class="card" *ngIf="!arePestsLoading">
+          <div class="header">
+            <h3 class="title">Bemerkungen</h3>
+          </div> <!-- .header -->
+          <div class="content">
+            <textarea name="form-remarks" [(ngModel)]="form.remarks" class="form-control" rows=5></textarea>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <loader [isLoading]="arePestsLoading"></loader>
+          <button md-button class="btn btn-default btn-fill" [routerLink]="['/bonitur']">Abbrechen</button>
+          <button md-raised-button class="btn btn-success btn-fill floatright" (click)="saveForm()">SPEICHERN</button>
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+
+  </div> <!-- .container-fluid -->
+</div> <!-- .main-content -->
+ 
+
+
+
+
+
+
+
+
+<!--<div class="main-container">
   <h1>{{form.name}}</h1>
   <div *ngIf="isformLoading">
     <md-spinner></md-spinner>
@@ -108,3 +233,4 @@
   </div>
 </div>
 
+-->

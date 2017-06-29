@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { DDAuthenticationModule } from './dd-authentication/import';
 import { PlattformNavigationModule } from './plattform-navigation/import';
+import { SidebarModule } from './sidebar/sidebar.module';
 
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
@@ -34,6 +35,7 @@ import { MaterialModule } from './material.module';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
+    SidebarModule,
     MaterialModule,
     DDAuthenticationModule,
     PlattformNavigationModule,

@@ -33,6 +33,7 @@ export class FormNewComponent {
       this.formDefinitionService.getFormDefinitionWithKey(params['formCategoryId'])
       .subscribe(x => {
         this.form = this.formDefinitionService.newForm
+        this.isFormLoading = false;
         this.arePestsLoading = false;
         }
       );

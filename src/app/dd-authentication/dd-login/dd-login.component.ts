@@ -32,7 +32,7 @@ export class DDLoginComponent implements OnInit {
     this.authenticationService.authState().subscribe(
       (message: DDAuthenticationMessage) => {
         if (message.isLogin()) { // User is logged in
-          this.router.navigate(['wissenschaft']); // Navigate to dashboard
+          this.router.navigate(['dashboard']); // Navigate to dashboard
         } else if (message.isError()) { // Wrong username or password
           this.alertService.error(message.message); // Display an error on the UI with the alert service
           this.isLoading = false; // Stop the loading wheel
@@ -43,6 +43,7 @@ export class DDLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authenticationService.signOut();
   }
 
   // Outlet connected to the "Sign in" button

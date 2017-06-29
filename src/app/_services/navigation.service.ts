@@ -21,6 +21,6 @@ export class NavigationService {
     this.router.navigate(['/login']);
   }
   public goToScience() {
-    this.router.navigate(['/wissenschaft']);
+    this.router.navigate(['/bonitur']);
   }
 }

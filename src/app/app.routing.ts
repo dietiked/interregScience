@@ -10,7 +10,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '404', component: Error404Component },
   { path: 'login', component: AuthComponent },
-  //{ path: 'dashboard', component: DashboardComponent, canActivate: [DDAuthGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [DDAuthGuard]},
   { path: '**', redirectTo: '404' }
 ];
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
+import { NavigationService } from '../../_services/index';
+
 import { FormDefinitionService, FormService } from '../index';
 import { Form } from '../index';
 
@@ -20,6 +22,7 @@ export class FormEditComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private navigationService: NavigationService,
     private formDefinitionService: FormDefinitionService,
     private formService: FormService
   ) {
@@ -52,6 +55,14 @@ export class FormEditComponent {
     let normalizedFormHeader = this.form.normalize();
     console.log('update form:', normalizedFormHeader);
     this.formService.updateForm(normalizedFormHeader)
+    .then(x => {
+    // Save pests
+    //this.formService.addPests(this.pests);
+      console.log('form pests:', this.form.pests);
+      this.navigationService.goToScience();
+      }
+    );
+
   }
 
 }

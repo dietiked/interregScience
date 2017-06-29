@@ -1,58 +1,56 @@
 <!--<plattform-navigation></plattform-navigation>-->
 
-  <div class="row">
+<loader [isLoading]="areFormsLoading"></loader>
+
+<div class="main-content">
+  <div class="container-fluid">
+  <div class="row" *ngIf="!areFormsLoading">
     <div class="col-md-12">
-    <h1>Boniturbl&auml;tter
-      <span *ngIf="!areDefinitionsLoading" class="floatright">
-        <button md-icon-button [mdMenuTriggerFor]="newFormMenu" color="primary">
-          <md-icon>add_box</md-icon>
-        </button>
-        <md-menu #newFormMenu="mdMenu">
-          <button *ngFor="let definition of formDefinitions | async" md-menu-item [routerLink]="['boniturblatt', 'neu', definition.$key]">
-            {{definition.short}} - {{definition.name}}
-            <span>Redial</span>
-          </button>
-        </md-menu>
-      </span>
-    </h1>
-    <div class="card">
-      <div class="card-header" data-background-color="red">
-        <h3 class="title">Boniturbl&auml;tter</h3>
-          <div class="dropdown"  *ngIf="!areDefinitionsLoading">
-            <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
-                Neu
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li *ngFor="let definition of formDefinitions | async">
-                <a href="#" [routerLink]="['boniturblatt', 'neu', definition.$key]">
-                  {{definition.short}} - {{definition.name}}
-                </a>
-              </li>
-            </ul>
-          </div>
+      <div class="card">
+        <div class="header" data-background-color="red">
+          <h3 class="title">Ausgef&uuml;llte Boniturbl&auml;tter
+            <div class="dropdown floatright">
+              <button href="#" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown">
+                  Neu
+                  <b class="caret"></b>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li *ngFor="let definition of formDefinitions | async">
+                  <a href="#" [routerLink]="['boniturblatt', 'neu', definition.$key]">
+                    {{definition.short}} - {{definition.name}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </h3>
+        </div>
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover table-striped" *ngIf="!areFormsLoading">
+            <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Formular</th>
+              <th>Anlage</th>
+              <th>Ort</th>
+              <th>Verantwortlich</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let form of forms | async">
+              <td>{{form.date}}</td>
+              <td>{{form.short}} - {{form.name}}</td>
+              <td>{{form.site}}</td>
+              <td>{{form.location}}</td>
+              <td>{{form.person}}</td>
+              <td><a [routerLink]="['boniturblatt', form.$key]"><i class="fa fa-pencil"></i></a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="card-content table-responsive table-full-width">
-        <loader isLoading="areFormsLoading"></loader>
-        <table class="table" *ngIf="!areFormsLoading">
-          <tr>
-            <th>Datum</th>
-            <th>Formular</th>
-            <th>Anlage</th>
-            <th>Ort</th>
-            <th>Verantwortlich</th>
-            <th></th>
-          </tr>
-          <tr *ngFor="let form of forms | async">
-            <td>{{form.date}}</td>
-            <td>{{form.short}} - {{form.name}}</td>
-            <td>{{form.site}}</td>
-            <td>{{form.location}}</td>
-            <td>{{form.person}}</td>
-            <td><a [routerLink]="['boniturblatt', form.$key]"><md-icon>create</md-icon></a></td>
-          </tr>
-        </table>
-      </div>
-    </div>
     </div>
   </div>
+  </div>
+</div>
+

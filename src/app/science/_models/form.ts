@@ -54,6 +54,7 @@ export class Form {
       location: this.location,
       person: this.person,
       remarks: this.remarks,
+      treatments: this.treatments,
       site: this.site,
       variety1: this.variety1,
       variety2: this.variety2,

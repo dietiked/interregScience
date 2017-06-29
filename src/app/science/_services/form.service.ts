@@ -23,7 +23,7 @@ export class FormService implements OnInit {
     this.authenticationService.user.subscribe(user => {
       // Get UID
       this.uid = user.uid;
-      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid));
+      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
       this.userPests = this.database.list(ScienceConstants.listPestsForUserWithUid(this.uid));
     });
  }
@@ -39,7 +39,7 @@ export class FormService implements OnInit {
   }
 
   public updateForm(form: any) {
-    this.currentForm.update(form);
+    return this.currentForm.update(form);
   }
 
   // Add new user form
