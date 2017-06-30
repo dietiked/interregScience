@@ -24,7 +24,7 @@ export class FormService implements OnInit {
       // Get UID
       this.uid = user.uid;
       this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
-      this.userPests = this.database.list(ScienceConstants.listPestsForUserWithUid(this.uid));
+      //this.userPests = this.database.list(ScienceConstants.listPestsForFormWithKey(this.uid));
     });
  }
 

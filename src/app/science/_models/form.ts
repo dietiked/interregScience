@@ -61,6 +61,8 @@ export class Form {
       variety3: this.variety3,
       variety4: this.variety4,
       variety5: this.variety5,
+      // Do not normalize pests!!!
+      // Pests are saved in a separate table
 
     }
   }

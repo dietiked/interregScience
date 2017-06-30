@@ -5,33 +5,34 @@ export class ScienceConstants {
   public static DATA_FORMS =  ScienceConstants.prefix + '/data/forms';
   public static DATA_PESTS =  ScienceConstants.prefix + '/data/pests';
 
-  // /formDefinitions/23
+  // /definitions/forms/23
   public static objectFormDefinitionWithKey(key: number) {
     return ScienceConstants.DEF_FORMS + '/' + key;
   }
 
-  // /formDefinitions/23/pests
+  // /definitions/forms/23/pests
   public static listPestsForDefinitionWithKey(key: number) {
     return ScienceConstants.DEF_FORMS + '/' + key + '/pests';
   }
 
-  // /forms/4jadf89an310fanfa (uid)
+  // data/forms/:uid
   public static listFormsForUserWithUid(uid: string) {
     return ScienceConstants.DATA_FORMS + '/' + uid;
   }
 
-  // /forms/4jadf89an310fanfa/-Ydf3ka46Foap6Ad
+  // data/forms/:uid/:formId
   public static objectFormForUserWithUidAndKey(uid: string, key: string) {
     return ScienceConstants.listFormsForUserWithUid(uid) + '/' + key;
   }
 
-  // /pests/53
+  // definitions/pests/:pestId
   public static objectPestWithKey(key: number) {
     return ScienceConstants.DEF_PESTS + '/' + key;
   }
 
-  public static listPestsForUserWithUid(uid: string) {
-    return ScienceConstants.DATA_PESTS + '/' + uid;
+  // data/pests/:formId
+  public static listPestsForFormWithKey(formId: string) {
+    return ScienceConstants.DATA_PESTS + '/' + formId;
   }
 
 }
