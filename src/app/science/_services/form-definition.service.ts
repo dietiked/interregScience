@@ -26,11 +26,11 @@ export class FormDefinitionService {
     this.formDefinitions = this.database.list(ScienceConstants.DEF_FORMS);
   }
 
-  private getFormDefinitionWithKey(key: number) {
+  private getFormDefinitionWithKey(key: string) {
     return this.database.object(ScienceConstants.objectFormDefinitionWithKey(key))
   }
 
-  public loadFormForDefinitionWithKey(key: number): Observable<Form> {
+  public loadFormForDefinitionWithKey(key: string): Observable<Form> {
 
     let observable = Observable.create((observer) => {
       let loadCounter = 0;

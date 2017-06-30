@@ -35,7 +35,6 @@ export class ScienceHomeComponent implements OnInit  {
     .subscribe(forms => {
       this.forms = forms;
       this.areFormsLoading = false;
-      console.log('Dashboard:', forms);
     })
   }
 

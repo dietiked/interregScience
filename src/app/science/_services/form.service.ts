@@ -59,7 +59,8 @@ export class FormService implements OnInit {
       // When loading is finish, append information to empty form
       .subscribe(dbForm => {
         form.initWithFirebaseObject(dbForm);
-        this.formPestService.getPestsForFormCategoryWithKey(form.formDefinition)
+        // Get pests information
+        this.formPestService.getPestsForFormCategoryWithKey(form.formDefinition, key)
         .subscribe(pests => {
           form.pests = pests;
           observer.next(form)
@@ -77,7 +78,8 @@ export class FormService implements OnInit {
 
   // Add new user form
   public addForm(form: any) {
-    return this.forms.push(form);
+    let save = this.forms.push(form);
+    return save;
   }
 
   // Pests

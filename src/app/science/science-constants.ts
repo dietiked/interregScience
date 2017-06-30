@@ -6,12 +6,12 @@ export class ScienceConstants {
   public static DATA_PESTS =  ScienceConstants.prefix + '/data/pests';
 
   // /definitions/forms/23
-  public static objectFormDefinitionWithKey(key: number) {
+  public static objectFormDefinitionWithKey(key: string) {
     return ScienceConstants.DEF_FORMS + '/' + key;
   }
 
   // /definitions/forms/23/pests
-  public static listPestsForDefinitionWithKey(key: number) {
+  public static listPestsForDefinitionWithKey(key: string) {
     return ScienceConstants.DEF_FORMS + '/' + key + '/pests';
   }
 
@@ -26,13 +26,18 @@ export class ScienceConstants {
   }
 
   // definitions/pests/:pestId
-  public static objectPestWithKey(key: number) {
+  public static objectPestWithKey(key: string) {
     return ScienceConstants.DEF_PESTS + '/' + key;
   }
 
   // data/pests/:formId
   public static listPestsForFormWithKey(formId: string) {
     return ScienceConstants.DATA_PESTS + '/' + formId;
+  }
+
+  // data/pests/:formId/:pestId
+  public static objectPestValuesForFormAndPest(pestId: string, formId: string) {
+    return ScienceConstants.DATA_PESTS + '/' + formId + '/' + pestId;
   }
 
 }

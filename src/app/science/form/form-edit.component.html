@@ -65,8 +65,8 @@
                 <td class="text-center"><input class="form-control" type="number" name="pest-v3" min="0" [(ngModel)]="pest.v3"></td>
                 <td class="text-center"><input class="form-control" type="number" name="pest-v4" min="0" [(ngModel)]="pest.v4"></td>
                 <td class="text-center"><input class="form-control" type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
-                <td class="text-center">{{pest.v1 + pest.v2}}</td>
-                <td class="text-center">%</td>
+                <td class="text-center">{{pest.v1 + pest.v2 + pest.v3 + pest.v4 + pest.v5}}</td>
+                <td class="text-center">{{(pest.v1 + pest.v2 + pest.v3 + pest.v4 + pest.v5) / pest.control | percent:'1.0-0'}}</td>
               </tr>
             </table>
           </div> <!-- .content -->
