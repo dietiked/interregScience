@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormDefinitionService, FormService } from '../index';
+import { FormDefinitionService, FormService, Form } from '../index';
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
@@ -12,7 +12,7 @@ import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/d
 export class ScienceHomeComponent implements OnInit  {
 
   formDefinitions: FirebaseListObservable<any[]>;
-  forms: FirebaseListObservable<any[]>;
+  forms: Form[];
   areDefinitionsLoading = true;
   areFormsLoading = true;
 
@@ -31,10 +31,11 @@ export class ScienceHomeComponent implements OnInit  {
     })
 
   // Show user forms once finish loading
-    this.forms =  this.formService.forms;
-    this.forms.subscribe(forms => {
-      //console.log('Forms', forms);
+    this.formService.loadForms()
+    .subscribe(forms => {
+      this.forms = forms;
       this.areFormsLoading = false;
+      console.log('Dashboard:', forms);
     })
   }
 

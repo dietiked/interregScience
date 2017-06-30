@@ -8,7 +8,6 @@ export class FormDefinition {
     this.$key = form.$key;
     this.name = form['name'];
     this.short = form['short'];
-    this.pests = form['pests'];
   }
 
   normalize() {

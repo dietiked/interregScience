@@ -4,8 +4,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { NavigationService } from '../../_services/index';
 
-import { FormDefinitionService, FormService } from '../index';
-import { Form } from '../index';
+import { Form, FormDefinitionService, FormService } from '../index';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +16,7 @@ export class FormEditComponent {
 
   isFormHeaderLoading = true;
   arePestsLoading = true;
-  form = new Form();
+  form:Form;
   pests = [];
 
   constructor(
@@ -31,21 +30,11 @@ export class FormEditComponent {
   ngOnInit() {
     // i) Load header
     this.route.params
-    .switchMap((params: Params) => this.formService.getUserFormWithKey(params['id']))
-    .subscribe(form => {
-      this.form.initWithFirebaseObject(form);
-      this.isFormHeaderLoading = false;
-      console.log('Form:', form);
-      console.log('Form Header:', this.form);
-
-      // ii) Load list of pests for this form category
-      this.formDefinitionService.getPestsForFormCategoryWithKey(this.form.formDefinition)
-      .subscribe(pests => {
-        this.pests = pests;
-        this.arePestsLoading = false;
-        console.log('Form definition:', this.form);
-        console.log('Pests:', pests);
-      });
+    .switchMap((params: Params) => 
+      this.formService.loadFormWithKey(params['id']))
+      .subscribe(form => {
+        this.form = form;
+        console.log('Form:', form);
     });
 
     // iii) Load pest values

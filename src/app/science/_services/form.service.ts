@@ -5,6 +5,8 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { Form } from '../index';
+import { FormPestService } from './form-pest.service';
 import { ScienceConstants } from '../index';
 
 @Injectable()
@@ -18,24 +20,55 @@ export class FormService implements OnInit {
   constructor(
     protected router: Router,
     private authenticationService: DDAuthenticationService,
-    private database: AngularFireDatabase
-  ) {
+    private database: AngularFireDatabase,
+    private formPestService: FormPestService
+ ) {
     this.authenticationService.user.subscribe(user => {
       // Get UID
       this.uid = user.uid;
-      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
-      //this.userPests = this.database.list(ScienceConstants.listPestsForFormWithKey(this.uid));
     });
  }
 
   ngOnInit() {
   }
 
-  // Return form with specific ID (for edit)
-  public getUserFormWithKey(key: string) {
-    let objectPath = ScienceConstants.objectFormForUserWithUidAndKey(this.uid, key);
-    this.currentForm = this.database.object(objectPath);
+  public loadForms(): Observable<Form[]> {
+    let observable = Observable.create((observer) => {
+      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
+      this.forms.subscribe(forms => {
+        observer.next(forms);
+      });
+    })
+
+    return observable;
+  }
+
+  private getFormWithKey(key: string): FirebaseObjectObservable<any> {
+    this.currentForm = this.database.object(ScienceConstants.objectFormForUserWithUidAndKey(this.uid, key));
     return this.currentForm;
+  }
+  
+  public loadFormWithKey(key: string): Observable<Form> {
+
+    let observable = Observable.create((observer) => {
+      let loadCounter = 0;
+      // Instantiate an empty form
+      let form = new Form();
+      // Get form definition and wait for response
+      this.getFormWithKey(key)
+      // When loading is finish, append information to empty form
+      .subscribe(dbForm => {
+        form.initWithFirebaseObject(dbForm);
+        this.formPestService.getPestsForFormCategoryWithKey(form.formDefinition)
+        .subscribe(pests => {
+          form.pests = pests;
+          observer.next(form)
+        });
+      });
+    });
+
+    return observable;
+
   }
 
   public updateForm(form: any) {

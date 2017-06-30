@@ -3,6 +3,7 @@ export * from './_models/form-definition';
 export * from './_models/form';
 export * from './_models/form-pest';
 export * from './_services/form.service';
+export * from './_services/form-pest.service';
 export * from './_services/form-definition.service';
 export * from './science-home/science-home.component';
 export * from './form/form-new.component';

@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="isFormLoading"></loader>
+        <loader [isLoading]="!form?.formDefinition"></loader>
         <h2>{{form.name}} - {{form.short}}</h2>
-        <div class="card" *ngIf="!isFormLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Allgemeine Angaben</h3>
           </div> <!-- .header -->
@@ -35,8 +35,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
-        <div class="card" *ngIf="!arePestsLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Bonitur</h3>
           </div> <!-- .header -->
@@ -57,7 +56,7 @@
                   <th class="text-center">Befall</th>
                 </tr>
               </thead>
-              <tr *ngFor="let pest of pests" [ngClass]="{'info': pest.$value}">
+              <tr *ngFor="let pest of form.pests" [ngClass]="{'info': pest.$value}">
                 <td>{{pest.$key}}</td>
                 <td>{{pest.name}}</td>
                 <td class="text-center"><input class="form-control" type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
@@ -77,8 +76,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
-        <div class="card" *ngIf="!arePestsLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Behandlungen</h3>
             <p class="category" >seit der letzten Bonitur</p>
@@ -92,8 +90,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
-        <div class="card" *ngIf="!arePestsLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Bemerkungen</h3>
           </div> <!-- .header -->
@@ -105,8 +102,7 @@
     </div> <!-- .row -->
 
     <div class="row">
-      <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
+      <div class="col-md-12" *ngIf="form?.formDefinition">
           <button md-button class="btn btn-default btn-fill" [routerLink]="['/bonitur']">Abbrechen</button>
           <button md-raised-button class="btn btn-success btn-fill floatright" (click)="updateForm()">SPEICHERN</button>
       </div> <!-- .col-md-12 -->

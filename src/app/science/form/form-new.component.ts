@@ -15,9 +15,7 @@ import { Form, FormPest } from '../index';
 
 export class FormNewComponent {
 
-  isFormLoading = true;
-  arePestsLoading = true;
-  form = new Form();
+  form:Form;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,11 +28,10 @@ export class FormNewComponent {
   ngOnInit() {
     this.route.params
     .subscribe((params: Params) => {
-      this.formDefinitionService.getFormDefinitionWithKey(params['formCategoryId'])
-      .subscribe(x => {
-        this.form = this.formDefinitionService.newForm
-        this.isFormLoading = false;
-        this.arePestsLoading = false;
+      this.formDefinitionService.loadFormForDefinitionWithKey(params['formCategoryId'])
+      .subscribe(form => {
+        this.form = form;
+        console.log('x', form);
         }
       );
     });

@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="isFormLoading"></loader>
-        <div class="card" *ngIf="!isFormLoading">
+        <loader [isLoading]="!form?.formDefinition"></loader>
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">{{form.name}} - {{form.short}}</h3>
             <p class="category">Boniturblatt</p>
@@ -35,8 +35,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
-        <div class="card" *ngIf="!arePestsLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Bonitur</h3>
           </div> <!-- .header -->
@@ -77,8 +76,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
-        <div class="card" *ngIf="!arePestsLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Behandlungen</h3>
             <p class="category" >seit der letzten Bonitur</p>
@@ -92,8 +90,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
-        <div class="card" *ngIf="!arePestsLoading">
+        <div class="card" *ngIf="form?.formDefinition">
           <div class="header">
             <h3 class="title">Bemerkungen</h3>
           </div> <!-- .header -->
@@ -104,9 +101,8 @@
       </div> <!-- .col-md-12 -->
     </div> <!-- .row -->
 
-    <div class="row">
+    <div class="row" *ngIf="form?.formDefinition">
       <div class="col-md-12">
-        <loader [isLoading]="arePestsLoading"></loader>
           <button md-button class="btn btn-default btn-fill" [routerLink]="['/bonitur']">Abbrechen</button>
           <button md-raised-button class="btn btn-success btn-fill floatright" (click)="saveForm()">SPEICHERN</button>
       </div> <!-- .col-md-12 -->
