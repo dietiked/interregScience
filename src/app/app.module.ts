@@ -25,7 +25,7 @@ import { environment } from '../environments/environment';
 
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -36,7 +36,6 @@ import { MaterialModule } from './material.module';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     SidebarModule,
-    MaterialModule,
     DDAuthenticationModule,
     PlattformNavigationModule,
     ScienceModule,

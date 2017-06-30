@@ -15,8 +15,6 @@ import { FormDefinitionService, FormService } from './index';
 import { FormNewComponent, FormEditComponent } from './index';
 
 import { DDAuthenticationModule } from '../dd-authentication/import';
-import { MaterialModule } from '../material.module';
-
 
 @NgModule({
   imports: [
@@ -24,7 +22,6 @@ import { MaterialModule } from '../material.module';
     FormsModule,
     HttpModule,
     PlattformNavigationModule,
-    MaterialModule,
     ScienceRoutingModule,
     DDAuthenticationModule,
   ],
