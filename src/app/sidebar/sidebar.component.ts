@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ROUTES } from '../routes.config';
+import { ROUTES } from './routes.config';
 
 @Component({
     moduleId: module.id,

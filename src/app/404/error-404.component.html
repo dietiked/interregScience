@@ -1,6 +1,21 @@
-<div class="text-center main-container">
-  <h1 class="center-align">Ooops!</h1>
-  <p>Diese Seite existiert nicht...</p>
-  <!--<p>Zur&uuml;ck zur <a [routerLink]="'//login'">Login-Seite</a></p>-->
-  <!--<p>oder zum <a [routerLink]="'//dashboard'">Dashboard</a></p>-->
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="">Ooops!</h1>
+        <p>Diese Seite existiert nicht...</p>
+        <p>N&uuml;tzliche Seiten:</p>
+          <ul class="list-unstyled">
+            <li style="margin-bottom:10px;">
+              <button (click)="backToLogin()" class="btn">Login-Seite</button>
+            </li>
+            <li>
+              <button (click)="backToDashboard()" class="btn">Dashboard</button>
+            </li>
+          </ul>
+        <!--<p>Zur&uuml;ck zur </p>-->
+        <!--<p>oder zum <a [routerLink]="'//dashboard'">Dashboard</a></p>-->
+      </div>
+    </div>
+  </div>
 </div>

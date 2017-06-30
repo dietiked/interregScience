@@ -9,7 +9,6 @@ import { SidebarModule } from './sidebar/sidebar.module';
 
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
-import { MenuComponent } from './menu/index';
 import { NavigationService } from './_services/index';
 import { DashboardComponent } from './dashboard/index';
 import { AuthComponent } from './auth/index'
@@ -44,7 +43,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     AuthComponent,
-    MenuComponent,
     DashboardComponent,
     Error404Component,
   ],
