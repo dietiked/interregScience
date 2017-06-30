@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { DDAuthenticationModule } from './dd-authentication/import';
-import { PlattformNavigationModule } from './plattform-navigation/import';
 import { SidebarModule } from './sidebar/sidebar.module';
 
 import { AppComponent } from './app.component';
@@ -36,7 +35,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     SidebarModule,
     DDAuthenticationModule,
-    PlattformNavigationModule,
     ScienceModule,
     AppRouting, // Always last!
   ],
