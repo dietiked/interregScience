@@ -12,7 +12,7 @@
             <table class="table-condensed">
               <tr>
                 <td><label for="form-date">Datum</label></td>
-                <td><input type="date" name="form-date" [(ngModel)]="form.date"></td>
+                <td><input type="date" name="form-date" [(ngModel)]="form.date" class="form-control"></td>
               </tr>
               <tr>
                 <td><label for="form-location">Ort</label></td>
@@ -56,8 +56,8 @@
                   <th class="text-center">Befall</th>
                 </tr>
               </thead>
-              <tr *ngFor="let pest of form.pests" [ngClass]="{'info': pest.$value}">
-                <td>{{pest.$key}}</td>
+              <tr *ngFor="let pest of pests" [ngClass]="{'info': pest.main}">
+                <td>{{pest.pestId}}</td>
                 <td>{{pest.name}}</td>
                 <td class="text-center"><input class="form-control" type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
                 <td class="text-center"><input class="form-control" type="number" name="pest-v1" min="0" [(ngModel)]="pest.v1"></td>
@@ -104,7 +104,7 @@
     <div class="row">
       <div class="col-md-12" *ngIf="form?.formDefinition">
           <button md-button class="btn btn-default btn-fill" [routerLink]="['/bonitur']">Abbrechen</button>
-          <button md-raised-button class="btn btn-success btn-fill floatright" (click)="updateForm()">SPEICHERN</button>
+          <button md-raised-button class="btn btn-success btn-fill floatright" (click)="update()">SPEICHERN</button>
       </div> <!-- .col-md-12 -->
     </div> <!-- .row -->
 

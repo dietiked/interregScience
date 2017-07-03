@@ -11,7 +11,7 @@
             <table class="table-condensed">
               <tr>
                 <td><label for="form-date">Datum</label></td>
-                <td><input type="date" name="form-date" [(ngModel)]="form.date"></td>
+                <td><input type="date" name="form-date" [(ngModel)]="form.date" class="form-control"></td>
               </tr>
               <tr>
                 <td><label for="form-location">Ort</label></td>
@@ -55,7 +55,7 @@
                   <th class="text-center">Befall</th>
                 </tr>
               </thead>
-              <!--<tr *ngFor="let pest of form.pests" [ngClass]="{'info': pest.$value}">
+              <tr *ngFor="let pest of pests" [ngClass]="{'info': pest.main}">
                 <td>{{pest.$key}}</td>
                 <td>{{pest.name}}</td>
                 <td class="text-center"><input class="form-control" type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
@@ -66,7 +66,7 @@
                 <td class="text-center"><input class="form-control" type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
                 <td class="text-center">{{pest.v1 + pest.v2}}</td>
                 <td class="text-center">%</td>
-              </tr>-->
+              </tr>
             </table>
           </div> <!-- .content -->
         </div> <!-- .card -->

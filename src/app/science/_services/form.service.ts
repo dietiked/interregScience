@@ -59,7 +59,7 @@ export class FormService implements OnInit {
     return this._forms;
   }
 
-  public formWithKey(key: string): FirebaseObjectObservable<any> {
+  public formWithKey(key: string): FirebaseObjectObservable<Form> {
     this._currentForm = this.database.object(ScienceConstants.formWithKeyForUserWithUid(key, this.uid));
     return this._currentForm;
   }
@@ -99,17 +99,6 @@ export class FormService implements OnInit {
     }
     let save = this._forms.push(form);
     return save;
-  }
-
-  // Pests
-  // args: pests = []
-  public addPests(pests: any) {
-    
-  }
-
-  // Return the pest counts for a specific form
-  public getPestsForFormWithKey() {
-
   }
 
 }

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { NavigationService } from '../../_services/index';
 
-import { FormService } from '../index';
+import { FormService, PestService } from '../index';
 import { Form, Pest } from '../index';
 
 @Component({
@@ -17,11 +17,13 @@ import { Form, Pest } from '../index';
 export class FormNewComponent {
 
   form: Form;
+  pests: Pest[];
 
   constructor(
     private route: ActivatedRoute,
     private navigationService: NavigationService,
-    private formService: FormService
+    private formService: FormService,
+    private pestService: PestService
   ) {
   }
 
@@ -35,14 +37,20 @@ export class FormNewComponent {
           //this.form.formDefinition = formCategoryId;
         }
       );
+      this.pestService.pestsForFormDefinitionWithKey(formCategoryId)
+      .subscribe(pests => {
+        this.pests = pests;
+      })
     });
   }
 
   saveForm() {
     this.formService.add(this.form)
-    .then(_ => {
-      console.log('_', _.key);
-      this.navigationService.goToScience();
+    .then(result => {
+      this.pestService.add(this.pests, result.key)
+      .subscribe(result1 => {
+        this.navigationService.goToScience();
+      })
     });
     /*// Save form header
     let normalizeform = this.form.normalize();

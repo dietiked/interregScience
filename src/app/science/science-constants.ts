@@ -2,6 +2,7 @@ export class ScienceConstants {
   private static prefix = '';
   public static DEF_FORMS = ScienceConstants.prefix + '/definitions/forms';
   public static DEF_PESTS =  ScienceConstants.prefix + '/definitions/pests';
+  public static DEF_FORMPESTS = ScienceConstants.prefix + '/definitions/formPests';
   public static DATA_FORMS =  ScienceConstants.prefix + '/data/forms';
   public static DATA_PESTS =  ScienceConstants.prefix + '/data/pests';
 
@@ -26,17 +27,21 @@ export class ScienceConstants {
   }
 
   // definitions/pests/:pestId
-  public static objectPestWithKey(key: string) {
+  public static pestWithKey(key: string) {
     return ScienceConstants.DEF_PESTS + '/' + key;
   }
 
-  // data/pests/:formId
+  // definitions/pestForms/:formId
+  public static pestsForFormDefinitionWithKey(formDefinitionId: string) {
+    return ScienceConstants.DEF_FORMPESTS + '/' + formDefinitionId;
+  }
+    // data/pests/:formId
   public static pestsForFormWithKey(formId: string) {
     return ScienceConstants.DATA_PESTS + '/' + formId;
   }
 
   // data/pests/:formId/:pestId
-  public static objectPestValuesForFormAndPest(pestId: string, formId: string) {
+  public static pestWithKeyForFormWithKey(pestId: string, formId: string) {
     return ScienceConstants.DATA_PESTS + '/' + formId + '/' + pestId;
   }
 

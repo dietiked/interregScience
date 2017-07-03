@@ -5,7 +5,8 @@ import 'rxjs/add/operator/switchMap';
 
 import { NavigationService } from '../../_services/index';
 
-import { Form, FormService } from '../index';
+import { FormService, PestService } from '../index';
+import { Form, Pest } from '../index';
 
 @Component({
   moduleId: module.id,
@@ -17,13 +18,14 @@ export class FormEditComponent {
 
   isFormHeaderLoading = true;
   arePestsLoading = true;
-  form: FirebaseObjectObservable<Form>;
-  pests = [];
+  form: Form;
+  pests: Pest[];
 
   constructor(
     private route: ActivatedRoute,
     private navigationService: NavigationService,
-    private formService: FormService
+    private formService: FormService,
+    private pestService: PestService
   ) {
   }
 
@@ -31,22 +33,30 @@ export class FormEditComponent {
     this.route.params
     .switchMap((params: Params) => 
       // i) Load header
-      this.form = this.formService.formWithKey(params['id']))
+      this.formService.formWithKey(params['id']))
+      .subscribe(form => {
+        this.form = form;
+      });
       // iii) Load pest values
+     this.route.params
+    .switchMap((params: Params) => 
+      // i) Load header
+      this.pestService.pestsForFormWithKey(params['id']))
+      .subscribe(pests => {
+        this.pests = pests;
+      });
   }
 
-  /*updateForm() {
-    let normalizedFormHeader = this.form.normalize();
-    console.log('update form:', normalizedFormHeader);
-    this.formService.updateForm(normalizedFormHeader)
-    .then(x => {
-    // Save pests
-    //this.formService.addPests(this.pests);
-      console.log('form pests:', this.form.pests);
-      this.navigationService.goToScience();
+  update() {
+    this.formService.updateForm(this.form)
+    .then(formResult => {
+      // Save pests
+      this.pestService.update(this.pests, this.form.$key);
+      console.log('Success:', this.form);
+      //this.navigationService.goToScience();
       }
     );
 
-  }*/
+  }
 
 }

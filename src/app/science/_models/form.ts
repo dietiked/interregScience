@@ -1,4 +1,5 @@
 interface FormInterface {
+  $key: string;
   formDefinition: string;
   name: string;
   short: string;
@@ -19,6 +20,7 @@ export class Form implements FormInterface {
   pests = [];
 
   constructor(
+    public $key, 
     public formDefinition, 
     public name, public short,
     public date =  '',
