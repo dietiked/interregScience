@@ -1,13 +1,29 @@
-<plattform-navigation></plattform-navigation>
-<div class="col-md-12">
-  <h3>Module</h3>
-  <div class="row">
-    <div class="col-md-4">
-      <a [routerLink]="['//wissenschaft']">
-        <div class="tile">
-          Wissenschaft
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" *ngIf="!isFormLoading">
+          <div class="header">
+            <h3 class="title">Module</h3>
+          </div> <!-- .header -->
+          <div class="content">
+            <button class="btn btn-default btn-fill btn-lg" [routerLink]="['//bonitur']" style="width:100%;">Bonitur</button>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-6 -->
+
+      <div class="col-md-6">
+        <div class="card" *ngIf="!isFormLoading">
+          <div class="header">
+            <h3 class="title">Nachrichten</h3>
+          </div> <!-- .header -->
+          <div class="content">
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-6 -->
+
+    </div> <!-- .row -->
+
+
+  </div> <!-- .container-fluid -->
+</div> <!-- .main-content -->

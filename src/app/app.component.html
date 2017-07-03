@@ -1,6 +1,13 @@
-<menu-component title="Interreg V - R&uuml;ckstandarmer Obstbau"></menu-component>
-<div class="container-fluid">
-  <div class="row">
-    <router-outlet></router-outlet>
-  </div>
+
+<div class="wrapper">
+
+    <div class="sidebar" data-color="red" data-image="" *ngIf="isUserLoggedIn">
+        <sidebar-cmp></sidebar-cmp>
+        <div class="sidebar-background"></div>
+    </div>
+
+    <div [ngClass]="{'main-panel': isUserLoggedIn}">
+        <!--<menu-component title="Interreg V - R&uuml;ckstandarmer Obstbau"></menu-component>-->
+        <router-outlet></router-outlet>
+    </div>
 </div>

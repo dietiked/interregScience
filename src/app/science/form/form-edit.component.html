@@ -1,106 +1,114 @@
-<plattform-navigation></plattform-navigation>
-<div class="col-md-12 form-container">
-  <h1>Boniturblatt</h1>
-  <loader [isLoading]="isFormHeaderLoading"></loader>
-  <div *ngIf="!isFormHeaderLoading">
-    <h2>{{formHeader.name}} <span class="text-right">{{formHeader.short}}</span></h2>
+<div class="main-content">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6">
-        <table class="table-condensed">
-          <tr>
-            <td><label for="form-date">Datum</label></td>
-            <td><input class="form-control" type="date" name="form-date" [(ngModel)]="formHeader.date"></td>
-          </tr>
-          <tr>
-            <td><label for="form-location">Ort</label></td>
-            <td><input class="form-control" type="string" name="form-location" [(ngModel)]="formHeader.location"></td>
-          </tr>
-          <tr>
-            <td><label for="form-site">Anlage</label></td>
-            <td><input class="form-control" type="string" name="form-site" [(ngModel)]="formHeader.site"></td>
-          </tr>
-          <tr>
-            <td><label for="form-person">Person</label></td>
-            <td><input class="form-control" type="string" name="form-person" [(ngModel)]="formHeader.person"></td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <table class="table-condensed">
-          <tr>
-            <td><label for="form-variety1">Sorte 1</label></td>
-            <td><input class="form-control" type="string" name="form-variety1" [(ngModel)]="formHeader.variety1"></td>
-          </tr>
-          <tr>
-            <td><label for="form-variety2">Sorte 2</label></td>
-            <td><input class="form-control" type="string" name="form-variety2" [(ngModel)]="formHeader.variety2"></td>
-          </tr>
-          <tr>
-            <td><label for="form-variety3">Sorte 3</label></td>
-            <td><input class="form-control" type="string" name="form-variety3" [(ngModel)]="formHeader.variety3"></td>
-          </tr>
-          <tr>
-            <td><label for="form-variety4">Sorte 4</label></td>
-            <td><input class="form-control" type="string" name="form-variety4" [(ngModel)]="formHeader.variety4"></td>
-          </tr>
-          <tr>
-            <td><label for="form-variety5">Sorte 5</label></td>
-            <td><input class="form-control" type="string" name="form-variety5" [(ngModel)]="formHeader.variety5"></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
+      <div class="col-md-12">
+        <loader [isLoading]="!form?.formDefinition"></loader>
+        <h2>{{form.name}} - {{form.short}}</h2>
+        <div class="card" *ngIf="form?.formDefinition">
+          <div class="header">
+            <h3 class="title">Allgemeine Angaben</h3>
+          </div> <!-- .header -->
+          <div class="content">
+            <table class="table-condensed">
+              <tr>
+                <td><label for="form-date">Datum</label></td>
+                <td><input type="date" name="form-date" [(ngModel)]="form.date" class="form-control"></td>
+              </tr>
+              <tr>
+                <td><label for="form-location">Ort</label></td>
+                <td><input class="form-control" type="string" name="form-location" [(ngModel)]="form.location"></td>
+              </tr>
+              <tr>
+                <td><label for="form-site">Anlage</label></td>
+                <td><input class="form-control" type="string" name="form-site" [(ngModel)]="form.site"></td>
+              </tr>
+              <tr>
+                <td><label for="form-person">Person</label></td>
+                <td><input class="form-control" type="string" name="form-person" [(ngModel)]="form.person"></td>
+              </tr>
+            </table>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
 
-  <loader [isLoading]="arePestsLoading"></loader>
-  <div *ngIf="!arePestsLoading">
-    <h2>Bonitur</h2>
-    <p><span class="main-organism">Hauptschädlinge für diese Periode</span></p>
-    <table class="table">
-      <tr>
-        <th>#</th>
-        <th>Sch&auml;dling</th>
-        <th class="text-center">Kontrolliert</th>
-        <th class="text-center">1</th>
-        <th class="text-center">2</th>
-        <th class="text-center">3</th>
-        <th class="text-center">4</th>
-        <th class="text-center">5</th>
-        <th class="text-center">Total</th>
-        <th class="text-center">Befall</th>
-      </tr>
-      <tr *ngFor="let pest of pests" [ngClass]="{'main-organism': pest.$value}">
-        <td>{{pest.$key}}</td>
-        <td>{{pest.name}}</td>
-        <td class="text-center"><input class="form-control" type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
-        <td class="text-center"><input class="form-control" type="number" name="pest-v1" min="0" [(ngModel)]="pest.v1"></td>
-        <td class="text-center"><input class="form-control" type="number" name="pest-v2" min="0" [(ngModel)]="pest.v2"></td>
-        <td class="text-center"><input class="form-control" type="number" name="pest-v3" min="0" [(ngModel)]="pest.v3"></td>
-        <td class="text-center"><input class="form-control" type="number" name="pest-v4" min="0" [(ngModel)]="pest.v4"></td>
-        <td class="text-center"><input class="form-control" type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
-        <td class="text-center">{{pest.v1 + pest.v2}}</td>
-        <td class="text-center">%</td>
-      </tr>
-    </table>
 
-    <table class="table">
-      <tr>
-        <td><label for="form-treatments">Behandlungen seit der letzten Bonitur</label></td>
-      </tr>
-      <tr>
-        <td><textarea name="form-variety5" [(ngModel)]="formHeader.treatments" class="form-control" rows=5></textarea></td>
-      </tr>
-      <tr>
-        <td><label for="form-remarks">Bemerkungen</label></td>
-      </tr>
-      <tr>
-        <td><textarea name="form-remarks" [(ngModel)]="formHeader.remarks" class="form-control" rows=5></textarea></td>
-      </tr>
-    </table>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" *ngIf="form?.formDefinition">
+          <div class="header">
+            <h3 class="title">Bonitur</h3>
+          </div> <!-- .header -->
+          <div class="content">
+            <p><span class="main-organism">Hauptschädlinge für diese Periode</span></p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Sch&auml;dling</th>
+                  <th class="text-center">Kontrolliert</th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety1" [(ngModel)]="form.variety1"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety2" [(ngModel)]="form.variety2"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety3" [(ngModel)]="form.variety3"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety4" [(ngModel)]="form.variety4"></th>
+                  <th class="text-center"><input class="form-control" type="string" name="form-variety5" [(ngModel)]="form.variety5"></th>
+                  <th class="text-center">Total</th>
+                  <th class="text-center">Befall</th>
+                </tr>
+              </thead>
+              <tr *ngFor="let pest of pests" [ngClass]="{'info': pest.main}">
+                <td>{{pest.pestId}}</td>
+                <td>{{pest.name}}</td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-kontrolle" min="0" [(ngModel)]="pest.control"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v1" min="0" [(ngModel)]="pest.v1"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v2" min="0" [(ngModel)]="pest.v2"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v3" min="0" [(ngModel)]="pest.v3"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v4" min="0" [(ngModel)]="pest.v4"></td>
+                <td class="text-center"><input class="form-control" type="number" name="pest-v5" min="0" [(ngModel)]="pest.v5"></td>
+                <td class="text-center">{{pest.v1 + pest.v2 + pest.v3 + pest.v4 + pest.v5}}</td>
+                <td class="text-center">{{(pest.v1 + pest.v2 + pest.v3 + pest.v4 + pest.v5) / pest.control | percent:'1.0-0'}}</td>
+              </tr>
+            </table>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
 
-<div class="floating-button">
-  <button class="btn btn-default" [routerLink]="['/wissenschaft']">Abbrechen</button>
-  <button class="btn btn-success" (click)="updateForm()">Speichern</button>
-</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" *ngIf="form?.formDefinition">
+          <div class="header">
+            <h3 class="title">Behandlungen</h3>
+            <p class="category" >seit der letzten Bonitur</p>
+          </div> <!-- .header -->
+          <div class="content">
+            <textarea name="form-variety5" [(ngModel)]="form.treatments" class="form-control" rows=5></textarea>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" *ngIf="form?.formDefinition">
+          <div class="header">
+            <h3 class="title">Bemerkungen</h3>
+          </div> <!-- .header -->
+          <div class="content">
+            <textarea name="form-remarks" [(ngModel)]="form.remarks" class="form-control" rows=5></textarea>
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+    <div class="row">
+      <div class="col-md-12" *ngIf="form?.formDefinition">
+          <button md-button class="btn btn-default btn-fill" [routerLink]="['/bonitur']">Abbrechen</button>
+          <button md-raised-button class="btn btn-success btn-fill floatright" (click)="update()">SPEICHERN</button>
+      </div> <!-- .col-md-12 -->
+    </div> <!-- .row -->
+
+
+  </div> <!-- .container-fluid -->
+</div> <!-- .main-content -->
+ 

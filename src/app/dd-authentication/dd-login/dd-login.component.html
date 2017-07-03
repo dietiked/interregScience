@@ -1,19 +1,32 @@
-<form (ngSubmit)="signinWithPassword()" #loginForm="ngForm">
-  <div class="form-group">
-    <label for="name">email: </label>
-    <input [(ngModel)]="user.email" placeholder="email" class="form-control" name="email" [disabled]="isLoading"/>
-  </div>
-  <div class="form-group">
-    <label for="password">password: </label>
-    <input [(ngModel)]="user.password" placeholder="password" type="password" class="form-control"  name="password" [disabled]="isLoading"/>
-  </div>
-  <button class="btn btn-primary btn-block" type="submit" [disabled]="isLoading">
-    Sign in
-  </button>
-</form>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 col-md-3 col-sm-2"></div>
+      <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="card" style="margin-top:50px">
+          <div class="header">
+            <h3 class="title">Rückstandsarmer Obstbau</h3>
+          </div> <!-- .header -->
+          <div class="content">
+
+            <form (ngSubmit)="signinWithPassword()" #loginForm="ngForm">
+              <div class="form-group">
+                <input [(ngModel)]="user.email" placeholder="email" name="email" [disabled]="isLoading" class="form-control">
+              </div>
+              <div class="form-group">
+                <input [(ngModel)]="user.password" placeholder="password" type="password" name="password" [disabled]="isLoading" class="form-control"/>
+              </div>
+              <button type="submit" [disabled]="isLoading" class="btn btn-primary btn-fill" style="width: 100%;">Sign In</button>  
+            </form>
+
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-4 -->
+      <div class="col-lg-4 col-md-3 col-sm-2"></div>
+    </div> <!-- .row -->
+  </div> <!-- .container-fluid -->
+</div> <!-- .main-content -->
+ 
 <div id="login-component-message-container">
   <dd-alert></dd-alert>
-  <div *ngIf="isLoading">
-    <p class="text-center"><img height="30" src="/assets/gif-load.gif"> Authentication</p>
-  </div>
 </div>

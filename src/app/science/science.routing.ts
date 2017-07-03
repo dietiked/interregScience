@@ -6,10 +6,10 @@ import { ScienceHomeComponent } from './index';
 import { FormNewComponent, FormEditComponent } from './index';
 
 const scienceRoutes: Routes = [
-    { path: 'wissenschaft', component: ScienceHomeComponent, canActivate: [DDAuthGuard], children: [
+    { path: 'bonitur', component: ScienceHomeComponent, canActivate: [DDAuthGuard], children: [
     ]}, // },
-    { path: 'wissenschaft/boniturblatt/neu/:formCategoryId', component: FormNewComponent, canActivate: [DDAuthGuard]},
-    { path: 'wissenschaft/boniturblatt/:id', component: FormEditComponent, canActivate: [DDAuthGuard]},
+    { path: 'bonitur/boniturblatt/neu/:formCategoryId', component: FormNewComponent, canActivate: [DDAuthGuard]},
+    { path: 'bonitur/boniturblatt/:id', component: FormEditComponent, canActivate: [DDAuthGuard]},
     // otherwise redirect to home
 ];
 

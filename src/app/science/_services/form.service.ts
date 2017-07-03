@@ -1,73 +1,104 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { DDAuthenticationService } from '../../dd-authentication/index';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { Form } from '../index';
+import { PestService } from './pest.service';
 import { ScienceConstants } from '../index';
 
 @Injectable()
-export class FormService {
+export class FormService implements OnInit {
 
-  public forms: Observable<any>;
   private uid;
-  userForms: FirebaseListObservable<any[]>;
-  currentForm: FirebaseObjectObservable<any>;
+  _forms: FirebaseListObservable<Form[]>;
+  public userPests: FirebaseListObservable<any[]>;
+  _currentForm: FirebaseObjectObservable<Form>;
+
+  _formDefinitions: FirebaseListObservable<Form[]>;
+  public newForm:Form;
+  _currentDefinition: FirebaseObjectObservable<Form>;
+  _newForm: FirebaseObjectObservable<Form>;
 
   constructor(
     protected router: Router,
-    private af: AngularFire
-  ) {
-    this.af.auth.subscribe(auth => {
-      // Download user forms
-      this.uid = auth.uid;
-      this.userForms = this.af.database.list(ScienceConstants.listFormsForUserWithUid(this.uid));
-      // Join user forms with definitions to get definition's full and short name
-      this.forms = this._getPublicForms(auth.uid);
+    private authenticationService: DDAuthenticationService,
+    private database: AngularFireDatabase,
+    private formPestService: PestService
+ ) {
+    this.authenticationService.user.subscribe(user => {
+      // Get UID
+      this.uid = user.uid;
     });
+ }
+
+  ngOnInit() {
   }
 
-  // Join tables "forms" and "formDefinitions" to get full and short name,
-  // because forms.formDefinition: number
-  _getPublicForms(uid) {
-    let myForm = this.userForms
-    .map(userForms => {
-      console.log('Firebase user forms', userForms);
-      // For every user form...
-      for (let userForm of userForms) {
-        // ... get the form definition ...
-        this.af.database.object(ScienceConstants.objectFormDefinitionWithKey(userForm.formDefinition))
-        // ... and join definition's full and short name
-        .subscribe(definition => {
-          userForm.name = definition.name;
-          userForm.short = definition.short;
-        })
-      }
-      return userForms;
+  // API on form definitions (readonly)
+  public formDefinitions(): FirebaseListObservable<Form[]> {
+    this._formDefinitions = this.database.list(ScienceConstants.DEF_FORMS);
+    return this._formDefinitions;
+  }
+
+  public formDefinitionWithKey(key: string): FirebaseObjectObservable<Form> {
+    this._currentDefinition = this.database.object(ScienceConstants.objectFormDefinitionWithKey(key));
+    return this._currentDefinition;
+  }
+
+  public formForDefinitionWithKey(key: string): FirebaseObjectObservable<Form> {
+    this._newForm = this.database.object(ScienceConstants.objectFormDefinitionWithKey(key));
+    return this._newForm;
+  }
+
+  // API on filled forms
+  public forms(): FirebaseListObservable<Form[]> {
+    this._forms = this.database.list(ScienceConstants.formsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
+    return this._forms;
+  }
+
+  public formWithKey(key: string): FirebaseObjectObservable<Form> {
+    this._currentForm = this.database.object(ScienceConstants.formWithKeyForUserWithUid(key, this.uid));
+    return this._currentForm;
+  }
+  
+  /*public loadFormWithKey(key: string): Observable<Form> {
+
+    let observable = Observable.create((observer) => {
+      let loadCounter = 0;
+      // Instantiate an empty form
+      let form = new Form();
+      // Get form definition and wait for response
+      this.getFormWithKey(key)
+      // When loading is finish, append information to empty form
+      .subscribe(dbForm => {
+        form.initWithFirebaseObject(dbForm);
+        // Get pests information
+        this.formPestService.getPestsForFormCategoryWithKey(form.formDefinition, key)
+        .subscribe(pests => {
+          form.pests = pests;
+          observer.next(form)
+        });
+      });
     });
-    console.log('Observable forms', myForm);
-    return myForm;
-  }
 
-  // Return all user forms
-  public getUserForms() {
-    return this.forms;
-  }
+    return observable;
 
-  // Return form with specific ID (for edit)
-  public getUserFormWithKey(key: string) {
-    let objectPath = ScienceConstants.objectFormForUserWithUidAndKey(this.uid, key);
-    this.currentForm = this.af.database.object(objectPath);
-    return this.currentForm;
-  }
+  }*/
 
   public updateForm(form: any) {
-    this.currentForm.update(form);
+    return this._currentForm.update(form);
   }
 
   // Add new user form
-  public addForm(form: any) {
-    this.userForms.push(form);
+  public add(form: any) {
+    if (! this._forms) {
+      this.forms();
+    }
+    let save = this._forms.push(form);
+    return save;
   }
 
 }

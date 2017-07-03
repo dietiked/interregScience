@@ -1,33 +1,48 @@
 export class ScienceConstants {
   private static prefix = '';
-  public static LIST_FORMDEFINITIONS = ScienceConstants.prefix + '/formDefinitions';
-  public static LIST_FORMS =  ScienceConstants.prefix + '/forms';
-  public static LIST_FORMPESTS =  ScienceConstants.prefix + '/formPests';
-  public static LIST_PESTS =  ScienceConstants.prefix + '/pests';
+  public static DEF_FORMS = ScienceConstants.prefix + '/definitions/forms';
+  public static DEF_PESTS =  ScienceConstants.prefix + '/definitions/pests';
+  public static DEF_FORMPESTS = ScienceConstants.prefix + '/definitions/formPests';
+  public static DATA_FORMS =  ScienceConstants.prefix + '/data/forms';
+  public static DATA_PESTS =  ScienceConstants.prefix + '/data/pests';
 
-  // /formDefinitions/23
-  public static objectFormDefinitionWithKey(key: number) {
-    return ScienceConstants.LIST_FORMDEFINITIONS + '/' + key;
+  // /definitions/forms/23
+  public static objectFormDefinitionWithKey(key: string) {
+    return ScienceConstants.DEF_FORMS + '/' + key;
   }
 
-  // /formDefinitions/23/pests
-  public static listPestsForDefinitionWithKey(key: number) {
-    return ScienceConstants.LIST_FORMDEFINITIONS + '/' + key + '/' + ScienceConstants.LIST_PESTS;
+  // /definitions/forms/23/pests
+  public static listPestsForDefinitionWithKey(key: string) {
+    return ScienceConstants.DEF_FORMS + '/' + key + '/pests';
   }
 
-  // /forms/4jadf89an310fanfa (uid)
-  public static listFormsForUserWithUid(uid: string) {
-    return ScienceConstants.LIST_FORMS + '/' + uid;
+  // data/forms/:uid
+  public static formsForUserWithUid(uid: string) {
+    return ScienceConstants.DATA_FORMS + '/' + uid;
   }
 
-  // /forms/4jadf89an310fanfa/-Ydf3ka46Foap6Ad
-  public static objectFormForUserWithUidAndKey(uid: string, key: string) {
-    return ScienceConstants.listFormsForUserWithUid(uid) + '/' + key;
+  // data/forms/:uid/:formId
+  public static formWithKeyForUserWithUid(key: string, uid: string) {
+    return ScienceConstants.formsForUserWithUid(uid) + '/' + key;
   }
 
-  // /pests/53
-  public static objectPestWithKey(key: number) {
-    return ScienceConstants.LIST_PESTS + '/' + key;
+  // definitions/pests/:pestId
+  public static pestWithKey(key: string) {
+    return ScienceConstants.DEF_PESTS + '/' + key;
+  }
+
+  // definitions/pestForms/:formId
+  public static pestsForFormDefinitionWithKey(formDefinitionId: string) {
+    return ScienceConstants.DEF_FORMPESTS + '/' + formDefinitionId;
+  }
+    // data/pests/:formId
+  public static pestsForFormWithKey(formId: string) {
+    return ScienceConstants.DATA_PESTS + '/' + formId;
+  }
+
+  // data/pests/:formId/:pestId
+  public static pestWithKeyForFormWithKey(pestId: string, formId: string) {
+    return ScienceConstants.DATA_PESTS + '/' + formId + '/' + pestId;
   }
 
 }

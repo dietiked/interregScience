@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { DDAuthenticationModule } from './dd-authentication/import';
-import { PlattformNavigationModule } from './plattform-navigation/import';
+import { SidebarModule } from './sidebar/sidebar.module';
 
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
-import { MenuComponent } from './menu/index';
 import { NavigationService } from './_services/index';
 import { DashboardComponent } from './dashboard/index';
 import { AuthComponent } from './auth/index'
@@ -17,36 +16,31 @@ import { Error404Component } from './404/index';
 import { ScienceModule } from './science/import';
 
 // Firebase configuration
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { environment } from '../environments/environment';
 
-const myFirebaseConfig = {
-  apiKey: "AIzaSyDfrnnRtOCl96Hd6MR0n0g-_z8-5yLayeM",
-  authDomain: "interregscience-dev.firebaseapp.com",
-  databaseURL: "https://interregscience-dev.firebaseio.com",
-  storageBucket: "interregscience-dev.appspot.com",
-  messagingSenderId: "105767761255"
-};
-
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
-};
+// Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
+    AngularFireModule.initializeApp(environment.firebase, 'interreg'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    SidebarModule,
     DDAuthenticationModule,
-    PlattformNavigationModule,
     ScienceModule,
     AppRouting, // Always last!
   ],
   declarations: [
     AppComponent,
     AuthComponent,
-    MenuComponent,
     DashboardComponent,
     Error404Component,
   ],

@@ -4,24 +4,32 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { DDAuthGuard, DDAuthenticationMessage } from './index';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { DDAuthenticationMessage } from './index';
 
 @Injectable()
 export class DDAuthenticationService {
 
+  // A subscriber of the authentication state
   private authStateSubscriber = new Subject<any>();
+  // A authentication message ready to be sent
   private message = new DDAuthenticationMessage();
+  // The user
+  user: Observable<firebase.User>;
 
   constructor(
-    private af: AngularFire,
+    // The AngularFire authentication service
+    private afAuth: AngularFireAuth,
+    // The router for redirecting user
     private router: Router,
-    private authGuard: DDAuthGuard
   ) {
-    this.af.auth.subscribe((auth) => {
-      // Constantly observe authentication state
-      console.log('Authentication service listen to subscription', auth);
-      this.manageAuthState(auth);
+    this.user = afAuth.authState;
+    // Constantly observe the firebase authentication state
+    // and forward any change to the manageAuthState function
+     // (never manage state changes in the constructor!)
+    this.user.subscribe((user) => {
+      this.manageAuthState(user);
     });
   }
 
@@ -29,39 +37,23 @@ export class DDAuthenticationService {
     return this.authStateSubscriber.asObservable();
   }
 
-  public isUserLoggedIn(): boolean {
-    return this.authGuard.isUserPersistent();
+  // A simple function that check if user is logged in
+  public isUserLoggedIn() {
+    if (this.afAuth.auth.currentUser) {
+      return true;
+    }
+    return false;
   }
 
   // Check if authentication response ist valid or not
-  private manageAuthState(auth: any, url?:String) {
-    console.log('Manage user state', auth);
-    if (auth) {
-      // User is logged in
-      // Tell Auth Guard to save user in local storage...
-      this.authGuard.login(auth)
-      .catch((error) => {
-        console.log('Auth guard cannot save to local storage');
-      })
-      .then((success)=>{
-        // ... and inform subscriber that login was successfull
-        this.message.loginMessage();
-        this.authStateSubscriber.next(this.message);
-      }
-    );
-    } else {
-      // User logged out
-      // Tell Auth Guard to remove user from local storage...
-      this.authGuard.logout()
-      .catch((error) => {
-        console.log('Auth guard cannot remove from local storage');
-      })
-      .then((success)=>{
-        // ... and inform subscriber that logout was successfull
-        this.message.logoutMessage();
-        this.authStateSubscriber.next(this.message);
-      });
-    }
+  private manageAuthState(user: firebase.User, url?:String) {
+    let message = new DDAuthenticationMessage();
+    if (user) {
+      message.loginMessage();
+     } else {
+      message.logoutMessage();
+     }
+    this.authStateSubscriber.next(message);
   }
 
   // Error handling if authentication request fails
@@ -74,29 +66,25 @@ export class DDAuthenticationService {
       var errorMsg = 'Wrong username or password';
       this.message.errorMessage(errorMsg);
       this.authStateSubscriber.next(this.message);
+    } else if (
+      error['code'] == 'auth/network-request-failed'
+    ) {
+      var errorMsg = 'Connection error: please, reload the page';
+      this.message.errorMessage(errorMsg);
+      this.authStateSubscriber.next(this.message);     
     }
   }
 
-  public signInWithPassword(username: String, password: String) {
-    var credentials = {email: username, password: password}
-    this.af.auth.login(credentials)
+  public signInWithPassword(username: string, password: string) {
+    console.log('Sign in');
+    this.afAuth.auth.signInWithEmailAndPassword(username, password)
     .catch(error => {
       this.authenticationRequestDidFail(error);
     });
   }
 
-  public signInWithGoogle() {
-    return this.af.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Popup
-    })
-    .catch((error) => {
-      this.authenticationRequestDidFail(error);
-    })
-  }
-
   public signOut() {
-    this.af.auth.logout()
+    this.afAuth.auth.signOut()
     .catch((error) => {
       this.authenticationRequestDidFail(error);
     });

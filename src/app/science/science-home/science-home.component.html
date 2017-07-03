@@ -1,35 +1,56 @@
-<plattform-navigation></plattform-navigation>
+<!--<plattform-navigation></plattform-navigation>-->
 
-<div class="col-md-9">
-  <h3>Ausgef&uuml;llte Formulare</h3>
-  <loader [isLoading]="areFormsLoading"></loader>
-  <table class="table" *ngIf="!areFormsLoading">
-    <tr>
-      <th>Datum</th>
-      <th>Formular</th>
-      <th>Anlage</th>
-      <th>Ort</th>
-      <th>Verantwortlich</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let form of forms">
-      <td>{{form.date}}</td>
-      <td>{{form.short}} - {{form.name}}</td>
-      <td>{{form.site}}</td>
-      <td>{{form.location}}</td>
-      <td>{{form.person}}</td>
-      <td><a [routerLink]="['boniturblatt', form.$key]"><span class="glyphicon glyphicon-pencil"></span></a></td>
-    </tr>
-  </table>
-</div>
+<loader [isLoading]="areFormsLoading"></loader>
 
-<div class="col-md-3">
-  <h3>Neues Formular starten</h3>
-  <loader [isLoading]="areDefinitionsLoading"></loader>
-  <a  *ngFor="let definition of formDefinitions | async" [routerLink]="['boniturblatt', 'neu', definition.$key]">
-    <div class="tile">
-      {{definition.short}} - {{definition.name}}
+<div class="main-content">
+  <div class="container-fluid">
+  <div class="row" *ngIf="!areFormsLoading">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header" data-background-color="red">
+          <h3 class="title">Ausgef&uuml;llte Boniturbl&auml;tter
+            <div class="dropdown floatright">
+              <button href="#" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-plus"></i>
+                  <b class="caret"></b>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li *ngFor="let definition of formDefinitions | async">
+                  <a href="#" [routerLink]="['boniturblatt', 'neu', definition.$key]">
+                    {{definition.short}} - {{definition.name}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </h3>
+        </div>
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover table-striped" *ngIf="!areFormsLoading">
+            <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Formular</th>
+              <th>Anlage</th>
+              <th>Ort</th>
+              <th>Verantwortlich</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let form of forms | async">
+              <td>{{form.date}}</td>
+              <td>{{form.short}} - {{form.name}}</td>
+              <td>{{form.site}}</td>
+              <td>{{form.location}}</td>
+              <td>{{form.person}}</td>
+              <td><a [routerLink]="['boniturblatt', form.$key]"><i class="fa fa-pencil"></i></a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </a>
-  <!--<a (click)="newForm(definition.$key)">{{definition.short}} - {{definition.name}}</a>-->
+  </div>
+  </div>
 </div>
+
