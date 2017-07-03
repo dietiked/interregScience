@@ -9,7 +9,7 @@ import { LoaderComponent } from '../_directives/index';
 
 import { ScienceConstants } from './index';
 import { ScienceHomeComponent } from './index';
-import { FormDefinitionService, FormService, FormPestService } from './index';
+import { FormService, PestService } from './index';
 import { FormNewComponent, FormEditComponent } from './index';
 
 import { DDAuthenticationModule } from '../dd-authentication/import';
@@ -30,9 +30,8 @@ import { DDAuthenticationModule } from '../dd-authentication/import';
   ],
   providers: [
     ScienceConstants,
-    FormDefinitionService,
     FormService,
-    FormPestService
+    PestService
   ]
 })
 export class ScienceModule { }

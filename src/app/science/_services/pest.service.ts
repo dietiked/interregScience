@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/map';
 
-import { FormPest } from '../_models/form-pest';
+import { Pest } from '../_models/pest';
 import { ScienceConstants } from '../index';
 
 @Injectable()
-export class FormPestService {
+export class PestService {
+
+  _pests: FirebaseListObservable<Pest>;
 
   constructor(
     private database: AngularFireDatabase,
@@ -14,17 +16,21 @@ export class FormPestService {
   ) {
   }
 
+  public pestsForFormWithKey(key:string) {
+    this.database.list(ScienceConstants.pestsForFormWithKey(key));
+  }
+
   // If valuesForFormId --> get form values for pests
   public getPestsForFormCategoryWithKey(formDefinitionId:string, valuesForFormId?:string) {
     // Discover, which pests are available for this form definition
     let pests = this.database.list(ScienceConstants.listPestsForDefinitionWithKey(formDefinitionId))
-    .map((pests:FormPest[]) => {
+    .map((pests:Pest[]) => {
       // Iterate through the form pests
       for (let pest of pests) {
         // Get pest definition
         this.database.object(ScienceConstants.objectPestWithKey(pest.$key))
         .subscribe(pestDefinition => {
-          var formPest = new FormPest(pestDefinition);
+          var formPest = new Pest(pestDefinition);
           pest.name = pestDefinition.name;
           if (valuesForFormId) {
             this.getValuesForPestInForm(formPest.$key, valuesForFormId)

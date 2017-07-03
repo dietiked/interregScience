@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormDefinitionService, FormService, Form } from '../index';
+import { FormService, Form } from '../index';
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
@@ -11,13 +11,12 @@ import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/d
 
 export class ScienceHomeComponent implements OnInit  {
 
-  formDefinitions: FirebaseListObservable<any[]>;
-  forms: Form[];
+  formDefinitions: FirebaseListObservable<Form[]>;
+  forms: FirebaseListObservable<Form[]>;
   areDefinitionsLoading = true;
   areFormsLoading = true;
 
   constructor(
-    private formDefinitionService: FormDefinitionService,
     private formService: FormService,
     private router: Router
   ) {
@@ -25,15 +24,14 @@ export class ScienceHomeComponent implements OnInit  {
 
   ngOnInit() {
     // Show form definitions once finish loading
-    this.formDefinitions = this.formDefinitionService.formDefinitions;
-    this.formDefinitions.subscribe(observer => {
+    this.formDefinitions = this.formService.formDefinitions();
+    this.formDefinitions.subscribe(_ => {
       this.areDefinitionsLoading = false;
     })
 
   // Show user forms once finish loading
-    this.formService.loadForms()
-    .subscribe(forms => {
-      this.forms = forms;
+    this.forms = this.formService.forms();
+    this.forms.subscribe(forms => {
       this.areFormsLoading = false;
     })
   }

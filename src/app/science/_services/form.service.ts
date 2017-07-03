@@ -6,22 +6,27 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Form } from '../index';
-import { FormPestService } from './form-pest.service';
+import { PestService } from './pest.service';
 import { ScienceConstants } from '../index';
 
 @Injectable()
 export class FormService implements OnInit {
 
   private uid;
-  public forms: FirebaseListObservable<any[]>;
+  _forms: FirebaseListObservable<Form[]>;
   public userPests: FirebaseListObservable<any[]>;
-  public currentForm: FirebaseObjectObservable<any>;
+  _currentForm: FirebaseObjectObservable<Form>;
+
+  _formDefinitions: FirebaseListObservable<Form[]>;
+  public newForm:Form;
+  _currentDefinition: FirebaseObjectObservable<Form>;
+  _newForm: FirebaseObjectObservable<Form>;
 
   constructor(
     protected router: Router,
     private authenticationService: DDAuthenticationService,
     private database: AngularFireDatabase,
-    private formPestService: FormPestService
+    private formPestService: PestService
  ) {
     this.authenticationService.user.subscribe(user => {
       // Get UID
@@ -32,23 +37,34 @@ export class FormService implements OnInit {
   ngOnInit() {
   }
 
-  public loadForms(): Observable<Form[]> {
-    let observable = Observable.create((observer) => {
-      this.forms = this.database.list(ScienceConstants.listFormsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
-      this.forms.subscribe(forms => {
-        observer.next(forms);
-      });
-    })
-
-    return observable;
+  // API on form definitions (readonly)
+  public formDefinitions(): FirebaseListObservable<Form[]> {
+    this._formDefinitions = this.database.list(ScienceConstants.DEF_FORMS);
+    return this._formDefinitions;
   }
 
-  private getFormWithKey(key: string): FirebaseObjectObservable<any> {
-    this.currentForm = this.database.object(ScienceConstants.objectFormForUserWithUidAndKey(this.uid, key));
-    return this.currentForm;
+  public formDefinitionWithKey(key: string): FirebaseObjectObservable<Form> {
+    this._currentDefinition = this.database.object(ScienceConstants.objectFormDefinitionWithKey(key));
+    return this._currentDefinition;
+  }
+
+  public formForDefinitionWithKey(key: string): FirebaseObjectObservable<Form> {
+    this._newForm = this.database.object(ScienceConstants.objectFormDefinitionWithKey(key));
+    return this._newForm;
+  }
+
+  // API on filled forms
+  public forms(): FirebaseListObservable<Form[]> {
+    this._forms = this.database.list(ScienceConstants.formsForUserWithUid(this.uid), {query: {orderByChild: 'date'}});
+    return this._forms;
+  }
+
+  public formWithKey(key: string): FirebaseObjectObservable<any> {
+    this._currentForm = this.database.object(ScienceConstants.formWithKeyForUserWithUid(key, this.uid));
+    return this._currentForm;
   }
   
-  public loadFormWithKey(key: string): Observable<Form> {
+  /*public loadFormWithKey(key: string): Observable<Form> {
 
     let observable = Observable.create((observer) => {
       let loadCounter = 0;
@@ -70,15 +86,18 @@ export class FormService implements OnInit {
 
     return observable;
 
-  }
+  }*/
 
   public updateForm(form: any) {
-    return this.currentForm.update(form);
+    return this._currentForm.update(form);
   }
 
   // Add new user form
-  public addForm(form: any) {
-    let save = this.forms.push(form);
+  public add(form: any) {
+    if (! this._forms) {
+      this.forms();
+    }
+    let save = this._forms.push(form);
     return save;
   }
 

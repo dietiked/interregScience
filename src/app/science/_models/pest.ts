@@ -1,4 +1,4 @@
-export class FormPest {
+export class Pest {
   $key: string;
   name: string;
   control = 0;

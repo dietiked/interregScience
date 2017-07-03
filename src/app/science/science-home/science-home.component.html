@@ -11,7 +11,7 @@
           <h3 class="title">Ausgef&uuml;llte Boniturbl&auml;tter
             <div class="dropdown floatright">
               <button href="#" class="btn btn-primary btn-fill dropdown-toggle" data-toggle="dropdown">
-                  Neu
+                  <i class="fa fa-plus"></i>
                   <b class="caret"></b>
               </button>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -37,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let form of forms">
+            <tr *ngFor="let form of forms | async">
               <td>{{form.date}}</td>
               <td>{{form.short}} - {{form.name}}</td>
               <td>{{form.site}}</td>

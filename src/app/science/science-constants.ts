@@ -16,13 +16,13 @@ export class ScienceConstants {
   }
 
   // data/forms/:uid
-  public static listFormsForUserWithUid(uid: string) {
+  public static formsForUserWithUid(uid: string) {
     return ScienceConstants.DATA_FORMS + '/' + uid;
   }
 
   // data/forms/:uid/:formId
-  public static objectFormForUserWithUidAndKey(uid: string, key: string) {
-    return ScienceConstants.listFormsForUserWithUid(uid) + '/' + key;
+  public static formWithKeyForUserWithUid(key: string, uid: string) {
+    return ScienceConstants.formsForUserWithUid(uid) + '/' + key;
   }
 
   // definitions/pests/:pestId
@@ -31,7 +31,7 @@ export class ScienceConstants {
   }
 
   // data/pests/:formId
-  public static listPestsForFormWithKey(formId: string) {
+  public static pestsForFormWithKey(formId: string) {
     return ScienceConstants.DATA_PESTS + '/' + formId;
   }
 

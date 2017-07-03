@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/switchMap';
 
 import { NavigationService } from '../../_services/index';
 
-import { FormDefinitionService, FormService } from '../index';
-import { Form, FormPest } from '../index';
+import { FormService } from '../index';
+import { Form, Pest } from '../index';
 
 @Component({
   moduleId: module.id,
@@ -15,12 +16,11 @@ import { Form, FormPest } from '../index';
 
 export class FormNewComponent {
 
-  form:Form;
+  form: Form;
 
   constructor(
     private route: ActivatedRoute,
     private navigationService: NavigationService,
-    private formDefinitionService: FormDefinitionService,
     private formService: FormService
   ) {
   }
@@ -28,17 +28,23 @@ export class FormNewComponent {
   ngOnInit() {
     this.route.params
     .subscribe((params: Params) => {
-      this.formDefinitionService.loadFormForDefinitionWithKey(params['formCategoryId'])
+      let formCategoryId = params['formCategoryId'];
+      this.formService.formForDefinitionWithKey(formCategoryId)
       .subscribe(form => {
-        this.form = form;
-        console.log('x', form);
+          this.form = form;
+          //this.form.formDefinition = formCategoryId;
         }
       );
     });
   }
 
   saveForm() {
-    // Save form header
+    this.formService.add(this.form)
+    .then(_ => {
+      console.log('_', _.key);
+      this.navigationService.goToScience();
+    });
+    /*// Save form header
     let normalizeform = this.form.normalize();
     console.log('save form:', normalizeform);
     this.formService.addForm(normalizeform)
@@ -48,7 +54,7 @@ export class FormNewComponent {
       console.log('form pests:', this.form.pests);
       this.navigationService.goToScience();
       }
-    );
+    );*/
   }
 
 }
