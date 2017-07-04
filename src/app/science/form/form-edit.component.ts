@@ -53,7 +53,7 @@ export class FormEditComponent {
       // Save pests
       this.pestService.update(this.pests, this.form.$key);
       console.log('Success:', this.form);
-      //this.navigationService.goToScience();
+      this.navigationService.goToScience();
       }
     );
 
