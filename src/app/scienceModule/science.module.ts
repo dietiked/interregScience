@@ -12,7 +12,7 @@ import { ScienceHomeComponent } from './index';
 import { FormService, PestService } from './index';
 import { FormNewComponent, FormEditComponent } from './index';
 
-import { DDAuthenticationModule } from '../dd-authentication/import';
+import { AuthModule } from '../authModule/import';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { DDAuthenticationModule } from '../dd-authentication/import';
     FormsModule,
     HttpModule,
     ScienceRoutingModule,
-    DDAuthenticationModule,
+    AuthModule,
   ],
   declarations: [
     LoaderComponent,

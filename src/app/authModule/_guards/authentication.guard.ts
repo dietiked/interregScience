@@ -6,7 +6,7 @@ import { AuthenticationService } from '../index';
 import * as firebase from 'firebase/app';
 
 @Injectable()
-export class DDAuthGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate {
 
     localStorageIdentifier = 'InterregScienceUser';
 

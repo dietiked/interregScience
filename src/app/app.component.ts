@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DDAuthenticationService, DDAuthenticationMessage } from './dd-authentication/index';
+import { AuthenticationService, AuthenticationMessage } from './authModule/index';
 
 @Component({
   moduleId: module.id,
@@ -13,10 +13,10 @@ export class AppComponent implements OnInit {
   private listTitles: any[];
 
   constructor(
-    private authenticationService: DDAuthenticationService,
+    private authenticationService: AuthenticationService,
   ) {
    this.authenticationService.authState().subscribe(
-      (message: DDAuthenticationMessage) => {
+      (message: AuthenticationMessage) => {
         this.isUserLoggedIn = authenticationService.isUserLoggedIn();
       }
     );

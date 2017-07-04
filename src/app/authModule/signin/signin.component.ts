@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DDAlertService } from '../../dd-alert/index';
 import { AuthenticationService, AuthenticationMessage } from '../index';
 
 @Component({
@@ -19,7 +18,7 @@ export class SigninComponent  implements OnInit {
     // Init component with Authentication Service
     private authenticationService: AuthenticationService,
     // Alert Service
-    private alertService: DDAlertService,
+    //private alertService: DDAlertService,
     // and router for redirecting user after login
     private router: Router
   ) {
@@ -31,7 +30,7 @@ export class SigninComponent  implements OnInit {
         if (message.isLogin()) { // User is logged in
           this.router.navigate(['dashboard']); // Navigate to dashboard
         } else if (message.isError()) { // Wrong username or password
-          this.alertService.error(message.message); // Display an error on the UI with the alert service
+          //this.alertService.error(message.message); // Display an error on the UI with the alert service
           this.isLoading = false; // Stop the loading wheel
           console.log('Display message: wrong username or password');
         }
@@ -49,3 +48,4 @@ export class SigninComponent  implements OnInit {
     // Validate user credentials with Authentication service
     this.authenticationService.signInWithPassword(this.user.email, this.user.password)
   }
+}

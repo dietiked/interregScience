@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { DDAuthenticationModule } from './dd-authentication/import';
 import { SidebarModule } from './sidebarModule/sidebar.module';
 import { AuthModule } from './authModule/auth.module';
+import { AuthenticationGuard } from './authModule/index';
 
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
@@ -35,7 +35,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     SidebarModule,
     AuthModule,
-    DDAuthenticationModule,
     ScienceModule,
     AppRouting, // Always last!
   ],
@@ -45,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Error404Component,
   ],
   providers: [
-    NavigationService
+    NavigationService,
+    AuthenticationGuard,
   ],
   bootstrap: [AppComponent]
 })

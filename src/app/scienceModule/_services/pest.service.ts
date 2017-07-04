@@ -39,10 +39,9 @@ export class PestService {
   }
 
   public add(pests: Pest[], formId: string): Observable<any> {
+    console.log('Form ID', formId);
     let observable = Observable.create(observer => {
-      if (!this._pestsForForm) {
-          this.pestsForFormWithKey(formId);
-        }
+      this.pestsForFormWithKey(formId);
       for (let pest of pests) {
         pest.pestId = pest['$key'];
         this._pestsForForm.push(pest);
