@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AuthenticationService, UserCredential, AuthenticationMessage } from '../index';
+import { NavigationService } from '../../_services/navigation.service';
 
 @Component({
     moduleId: module.id,
@@ -6,7 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SignupComponent implements OnInit {
-    constructor() { }
+
+    @Input()
+    user = new UserCredential();
+    //user = {firstName: '', familyName: '', email: '', password: '', passwordRepeat: ''};
+
+    constructor(
+        private authService: AuthenticationService,
+        private navService: NavigationService,
+    ) { }
 
     ngOnInit() { }
+
+    public signup() {
+        this.authService.signUp(this.user)
+        .then(_ => {
+            this.navService.goToDashboard();
+        });
+    }
 }

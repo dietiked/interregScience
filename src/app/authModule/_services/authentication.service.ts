@@ -8,6 +8,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AuthenticationMessage } from '../index';
 
+
+export class UserCredential {
+  firstName: string;
+  familyName: string;
+  email: string;
+  password: string;
+}
+
 @Injectable()
 export class AuthenticationService {
 
@@ -90,7 +98,12 @@ export class AuthenticationService {
     });
   }
 
-  getUsername(): String {
-    return ''
+  public signUp(credentials: UserCredential) {
+    console.log('User', this.user);
+    return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password)
+    .then(_ => {
+      console.log('uid',  this.afAuth.auth.currentUser.uid);
+    });
   }
+
 }
