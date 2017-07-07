@@ -1,17 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { DDAlertService } from '../../dd-alert/index';
-import { DDAuthenticationService, DDAuthenticationMessage } from '../index';
+import { AuthenticationService, AuthenticationMessage } from '../index';
 
 @Component({
   moduleId: module.id,
-  selector: 'dd-login',
-  templateUrl: './dd-login.component.html',
-  styleUrls: ['./dd-login.component.css']
+  templateUrl: './signin.component.html'
 })
 
-export class DDLoginComponent implements OnInit {
+export class SigninComponent  implements OnInit {
 
   @Input()
   user = {email: 'test@test.com', password: 'test666'};
@@ -20,9 +16,9 @@ export class DDLoginComponent implements OnInit {
 
   constructor(
     // Init component with Authentication Service
-    private authenticationService: DDAuthenticationService,
+    private authenticationService: AuthenticationService,
     // Alert Service
-    private alertService: DDAlertService,
+    //private alertService: DDAlertService,
     // and router for redirecting user after login
     private router: Router
   ) {
@@ -30,11 +26,11 @@ export class DDLoginComponent implements OnInit {
     // The authentication service returns an authentication message
     // when the user try to log in
     this.authenticationService.authState().subscribe(
-      (message: DDAuthenticationMessage) => {
+      (message: AuthenticationMessage) => {
         if (message.isLogin()) { // User is logged in
           this.router.navigate(['dashboard']); // Navigate to dashboard
         } else if (message.isError()) { // Wrong username or password
-          this.alertService.error(message.message); // Display an error on the UI with the alert service
+          //this.alertService.error(message.message); // Display an error on the UI with the alert service
           this.isLoading = false; // Stop the loading wheel
           console.log('Display message: wrong username or password');
         }
@@ -52,6 +48,4 @@ export class DDLoginComponent implements OnInit {
     // Validate user credentials with Authentication service
     this.authenticationService.signInWithPassword(this.user.email, this.user.password)
   }
-
-
 }

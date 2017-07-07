@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DDAuthenticationService } from '../../dd-authentication/index';
+import { AuthenticationService } from '../../authModule/index';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -24,7 +24,7 @@ export class FormService implements OnInit {
 
   constructor(
     protected router: Router,
-    private authenticationService: DDAuthenticationService,
+    private authenticationService: AuthenticationService,
     private database: AngularFireDatabase,
     private formPestService: PestService
  ) {

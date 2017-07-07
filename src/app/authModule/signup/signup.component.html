@@ -1,0 +1,65 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 col-md-3 col-sm-2"></div>
+      <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="card" style="margin-top:50px">
+          <div class="header">
+            <h3 class="title">Rückstandsarmer Obstbau</h3>
+            <p class="category">Registrieren (* Pflichtfelder)</p>
+          </div> <!-- .header -->
+          <div class="content">
+
+            <form (ngSubmit)="signup()" #signupForm="ngForm" novalidate >
+              <div class="form-group">
+                <label class="control-label" for="firstName">Vorname *</label>
+                <input [(ngModel)]="user.firstName" id="firstName" placeholder="Vorname" name="firstName" [disabled]="isLoading" class="form-control" #firstName="ngModel" required>
+                <div *ngIf="firstName.errors && firstName.touched" class="alert alert-danger" style="margin-top:5px;">
+                    <div [hidden]="!firstName.errors.required">Vorname ist pflicht</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="familyName">Name *</label>
+                <input [(ngModel)]="user.familyName" id="familyName" placeholder="Name" name="familyName" [disabled]="isLoading" class="form-control" #familyName="ngModel" required>
+                <div *ngIf="familyName.errors && familyName.touched" class="alert alert-danger" style="margin-top:5px;">
+                    <div [hidden]="!familyName.errors.required">Name ist pflicht</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="email">Email *</label>
+                <input [(ngModel)]="user.email" id="email" placeholder="email" name="email" type="email" [disabled]="isLoading" class="form-control" #email="ngModel" required>
+                <div *ngIf="email.errors && email.touched" class="alert alert-danger" style="margin-top:5px;">
+                    <div [hidden]="!email.errors.required">Email ist pflicht</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="passwort">Passwort (mind. 6 Zeichnen) *</label>
+                <input [(ngModel)]="user.password" id="passwort" placeholder="Passwort" type="password" name="password" minlength="6" 
+                [disabled]="isLoading" class="form-control" #password="ngModel" required>
+                <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger" style="margin-top:5px;">
+                    <div [hidden]="!password.errors.required">Passwort ist pflicht!</div>
+                    <div [hidden]="!password.errors.minlenght">Passwort muss mindestens 6 Zeichnen haben!</div>
+                </div>
+              </div>
+              <div class="form-group has-feedback" [ngClass]="{'has-error': !isPasswordMatching, 'has-success': isPasswordMatching}">
+                <label class="control-label" for="passwordRepeat">Passwort wiederholen *</label>
+                <input [(ngModel)]="user.passwordRepeat" id="passwordRepeat" placeholder="Passwort" type="password" name="passwordRepeat" 
+                    [disabled]="isLoading" class="form-control" #passwordRepeat="ngModel" required (keyup)="checkPassword(user.password, user.passwordRepeat)">                
+                <div *ngIf="passwordRepeat.errors && passwordRepeat.touched" class="alert alert-danger" style="margin-top:5px;">
+                    <div [hidden]="!passwordRepeat.errors.required">Passwort ist pflicht</div>
+                    <div [hidden]="isPasswordMatching">Passw&ouml;rter sind nicht gleich!</div>
+                </div>
+              </div>
+              <button type="submit" [disabled]="isLoading" class="btn btn-primary btn-fill" style="width: 100%;" [disabled]="!signupForm.form.valid || !isPasswordMatching">
+                  Registrieren
+              </button>  
+            </form>
+
+          </div> <!-- .content -->
+        </div> <!-- .card -->
+      </div> <!-- .col-md-4 -->
+      <div class="col-lg-4 col-md-3 col-sm-2"></div>
+    </div> <!-- .row -->
+  </div> <!-- .container-fluid -->
+</div> <!-- .main-content -->
+ 

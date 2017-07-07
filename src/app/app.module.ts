@@ -3,17 +3,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { DDAuthenticationModule } from './dd-authentication/import';
-import { SidebarModule } from './sidebar/sidebar.module';
+import { SidebarModule } from './sidebarModule/sidebar.module';
+import { AuthModule } from './authModule/auth.module';
+import { AuthenticationGuard } from './authModule/index';
 
 import { AppComponent } from './app.component';
 import { AppRouting }     from './app.routing';
 import { NavigationService } from './_services/index';
-import { DashboardComponent } from './dashboard/index';
-import { AuthComponent } from './auth/index'
-import { Error404Component } from './404/index';
+import { DashboardComponent } from './dashboardComponent/index';
+import { Error404Component } from './404Component/index';
 
-import { ScienceModule } from './science/import';
+import { ScienceModule } from './scienceModule/import';
 
 // Firebase configuration
 import { AngularFireModule } from 'angularfire2';
@@ -34,18 +34,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     SidebarModule,
-    DDAuthenticationModule,
+    AuthModule,
     ScienceModule,
     AppRouting, // Always last!
   ],
   declarations: [
     AppComponent,
-    AuthComponent,
     DashboardComponent,
     Error404Component,
   ],
   providers: [
-    NavigationService
+    NavigationService,
+    AuthenticationGuard,
   ],
   bootstrap: [AppComponent]
 })

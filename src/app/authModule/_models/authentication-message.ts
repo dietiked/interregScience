@@ -2,7 +2,7 @@
 // A simple class that send a message to a subscriber.
 // A message has a result (boolean) and a message (string)
 
-export class DDAuthenticationMessage {
+export class AuthenticationMessage {
   result: string;
   message = '';
 

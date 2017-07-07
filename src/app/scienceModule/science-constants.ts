@@ -1,7 +1,7 @@
 export class ScienceConstants {
   private static prefix = '';
-  public static DEF_FORMS = ScienceConstants.prefix + '/definitions/forms';
   public static DEF_PESTS =  ScienceConstants.prefix + '/shared/pests';
+  public static DEF_FORMS = ScienceConstants.prefix + '/definitions/forms';
   public static DEF_FORMPESTS = ScienceConstants.prefix + '/definitions/pests';
   public static DATA_FORMS =  ScienceConstants.prefix + '/data/forms';
   public static DATA_PESTS =  ScienceConstants.prefix + '/data/pests';
