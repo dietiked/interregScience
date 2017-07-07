@@ -6,10 +6,11 @@ import { HttpModule } from '@angular/http';
 import { ScienceRoutingModule } from './science.routing';
 
 import { LoaderComponent } from '../_directives/index';
+import { JsonToCsvService } from '../_services/index';
 
 import { ScienceConstants } from './index';
 import { ScienceHomeComponent } from './index';
-import { FormService, PestService } from './index';
+import { FormService, PestService, DownloadService } from './index';
 import { FormNewComponent, FormEditComponent } from './index';
 
 import { AuthModule } from '../authModule/import';
@@ -29,6 +30,8 @@ import { AuthModule } from '../authModule/import';
     FormEditComponent
   ],
   providers: [
+    JsonToCsvService,
+    DownloadService,
     ScienceConstants,
     FormService,
     PestService

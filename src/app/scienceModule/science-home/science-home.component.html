@@ -22,6 +22,9 @@
                 </li>
               </ul>
             </div>
+            <button class="btn btn-default btn-fill floatright" (click)="download()" style="margin-right: 10px;">
+              <i class="fa fa-cloud-download"></i>
+            </button>
           </h3>
         </div>
         <div class="content table-responsive table-full-width">
@@ -43,7 +46,14 @@
               <td>{{form.site}}</td>
               <td>{{form.location}}</td>
               <td>{{form.person}}</td>
-              <td><a [routerLink]="['boniturblatt', form.$key]"><i class="fa fa-pencil"></i></a></td>
+              <td>
+                <a (click)="download(form.$key)" style="margin-right: 10px;">
+                  <i class="fa fa-cloud-download"></i>
+                </a>                
+                <a [routerLink]="['boniturblatt', form.$key]">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              </td>
             </tr>
             </tbody>
           </table>

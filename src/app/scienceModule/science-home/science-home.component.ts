@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormService, Form } from '../index';
+import { FormService, Form, DownloadService } from '../index';
 import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
@@ -18,7 +18,8 @@ export class ScienceHomeComponent implements OnInit  {
 
   constructor(
     private formService: FormService,
-    private router: Router
+    private router: Router,
+    private downloadService: DownloadService
   ) {
   }
 
@@ -38,6 +39,14 @@ export class ScienceHomeComponent implements OnInit  {
 
   newForm(key) {
     this.router.navigate(['science', 'forms', 'new', key]);
+  }
+
+  public download(formId?: string) {
+    if (!formId) {
+      this.downloadService.downloadForms();
+    } else {
+      this.downloadService.downloadFormWithKey(formId);
+    }
   }
 
 }
