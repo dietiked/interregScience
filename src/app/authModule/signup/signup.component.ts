@@ -9,6 +9,8 @@ import { NavigationService } from '../../_services/navigation.service';
 
 export class SignupComponent implements OnInit {
 
+    public isPasswordMatching = false;
+
     @Input()
     user = new UserCredential();
     //user = {firstName: '', familyName: '', email: '', password: '', passwordRepeat: ''};
@@ -25,5 +27,14 @@ export class SignupComponent implements OnInit {
         .then(_ => {
             this.navService.goToDashboard();
         });
+    }
+
+    public checkPassword(password: string, passwordConfirm: string) {
+        if (password == passwordConfirm) {
+            this.isPasswordMatching = true;
+        } else {
+            this.isPasswordMatching = false;
+        }
+        console.log('Password', this.isPasswordMatching, password, passwordConfirm);
     }
 }

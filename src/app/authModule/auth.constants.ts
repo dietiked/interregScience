@@ -2,7 +2,7 @@ export class AuthConstants {
   private static prefix = '';
   public static USERS =  AuthConstants.prefix + '/users';
 
-  // /definitions/forms/23
+  // /users/1fckS2LULZem7hR6oYfLXi1ETls1
   public static userWithUID(uid: string) {
     return AuthConstants.USERS + '/' + uid;
   }

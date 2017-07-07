@@ -1,3 +1,4 @@
+export * from './auth.constants';
 export * from './_models/authentication-message';
 export * from './_services/authentication.service';
 export * from './_guards/authentication.guard';

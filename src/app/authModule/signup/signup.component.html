@@ -6,7 +6,7 @@
         <div class="card" style="margin-top:50px">
           <div class="header">
             <h3 class="title">Rückstandsarmer Obstbau</h3>
-            <p class="category">Registrieren</p>
+            <p class="category">Registrieren (* Pflichtfelder)</p>
           </div> <!-- .header -->
           <div class="content">
 
@@ -33,25 +33,26 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label" for="passwort">Passwort *</label>
+                <label class="control-label" for="passwort">Passwort (mind. 6 Zeichnen) *</label>
                 <input [(ngModel)]="user.password" id="passwort" placeholder="Passwort" type="password" name="password" minlength="6" 
-                [disabled]="isLoading" class="form-control" #password="ngModel" passwordCheck="passwordRepeat" required>
-                <div *ngIf="password.errors && password.touched" class="alert alert-danger" style="margin-top:5px;">
-                    <div [hidden]="!password.errors.required || (passwordRepeat.pristine && !signupForm.submitted)">Passwort ist pflicht</div>
+                [disabled]="isLoading" class="form-control" #password="ngModel" required>
+                <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger" style="margin-top:5px;">
+                    <div [hidden]="!password.errors.required">Passwort ist pflicht!</div>
+                    <div [hidden]="!password.errors.minlenght">Passwort muss mindestens 6 Zeichnen haben!</div>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group has-feedback" [ngClass]="{'has-error': !isPasswordMatching, 'has-success': isPasswordMatching}">
                 <label class="control-label" for="passwordRepeat">Passwort wiederholen *</label>
                 <input [(ngModel)]="user.passwordRepeat" id="passwordRepeat" placeholder="Passwort" type="password" name="passwordRepeat" 
-                    [disabled]="isLoading" class="form-control" #passwordRepeat="ngModel" passwordCheck="password" required>
+                    [disabled]="isLoading" class="form-control" #passwordRepeat="ngModel" required (keyup)="checkPassword(user.password, user.passwordRepeat)">                
                 <div *ngIf="passwordRepeat.errors && passwordRepeat.touched" class="alert alert-danger" style="margin-top:5px;">
                     <div [hidden]="!passwordRepeat.errors.required">Passwort ist pflicht</div>
-                    <div [hidden]="passwordRepeat.valid || (passwordRepeat.pristine && !signupForm.submitted)">Passw&ouml;rter sind nicht gleich!</div>
+                    <div [hidden]="isPasswordMatching">Passw&ouml;rter sind nicht gleich!</div>
                 </div>
               </div>
-              <button type="submit" [disabled]="isLoading" class="btn btn-primary btn-fill" style="width: 100%;" [disabled]="!signupForm.form.valid">
+              <button type="submit" [disabled]="isLoading" class="btn btn-primary btn-fill" style="width: 100%;" [disabled]="!signupForm.form.valid || !isPasswordMatching">
                   Registrieren
-                        </button>  
+              </button>  
             </form>
 
           </div> <!-- .content -->

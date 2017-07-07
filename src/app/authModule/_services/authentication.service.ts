@@ -5,15 +5,29 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { AuthenticationMessage } from '../index';
+import { AuthConstants } from '../index';
 
 
 export class UserCredential {
-  firstName: string;
-  familyName: string;
-  email: string;
-  password: string;
+  firstName: string = '';
+  familyName: string = '';
+  email: string = '';
+  organisation: string = '';
+  organisationId: string = '';
+  password: string = '';
+
+  public userInfo() {
+    return {
+      firstName: this.firstName,
+      familyName: this.familyName,
+      email: this.email,
+      organisation: this.organisation,
+      organisationId: this.organisationId
+    }
+  }
 }
 
 @Injectable()
@@ -25,10 +39,12 @@ export class AuthenticationService {
   private message = new AuthenticationMessage();
   // The user
   user: Observable<firebase.User>;
+  uid: string;
 
   constructor(
     // The AngularFire authentication service
     private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase,
     // The router for redirecting user
     private router: Router,
   ) {
@@ -57,6 +73,7 @@ export class AuthenticationService {
   private manageAuthState(user: firebase.User, url?:String) {
     let message = new AuthenticationMessage();
     if (user) {
+      this.uid = user.uid;
       message.loginMessage();
      } else {
       message.logoutMessage();
@@ -102,8 +119,17 @@ export class AuthenticationService {
     console.log('User', this.user);
     return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password)
     .then(_ => {
-      console.log('uid',  this.afAuth.auth.currentUser.uid);
+      let uid =  this.afAuth.auth.currentUser.uid;
+      this.newUserWithUidAndCredentials(uid, credentials);
     });
+  }
+
+  private newUserWithUidAndCredentials(uid: string, credentials: UserCredential) {
+    this.db.object(AuthConstants.userWithUID(uid)).set(credentials.userInfo());
+  }
+
+  public userInfo() {
+    return this.db.object(AuthConstants.userWithUID(this.uid));
   }
 
 }
